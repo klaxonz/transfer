@@ -1,0 +1,13 @@
+.info-container{
+    height: 55px;
+}
+
+.input-tips{
+    color: darkred;
+}
+
+#submit {
+    height: 100%;
+    width: 100%;
+    border: none;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material_icon/css/material_design_iconic_font.min.css}">
+    <link rel="stylesheet" th:href="@{https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css}">
+    <link rel="stylesheet" th:href="@{/css/frontend/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/frontend/register.css}"/>
+
+</head>
+<body>
+
+<div class="main">
+    <!-- Sign up form -->
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">注册</h2>
+                    <form method="POST" class="register-form" id="register-form">
+                        <div class="info-container">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="用户名"/>
+                            </div>
+                        </div>
+
+                        <div class="info-container">
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="邮箱"/>
+                            </div>
+                        </div>
+
+                        <div class="info-container">
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="密码"/>
+                            </div>
+                        </div>
+
+                        <div class="info-container">
+                            <div class="form-group">
+                                <label for="re_pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="确认密码"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-button">
+                            <input type="button" name="signup" id="submit" class="form-submit" value="提交"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="signup-image">
+                    <figure><img src="" th:src="@{/images/signin.jpg}" alt="sing up image"></figure>
+                    <a href="#" class="signup-image-link">已经拥有账号</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- JS -->
+<script src="" th:src="@{https://cdn.bootcss.com/jquery/3.3.1/jquery.js}"></script>
+<script th:src="@{https://qidian.gtimg.com/lulu/theme/peak/js/common/all.js}"></script>
+<script src="" th:src="@{/js/frontend/register.js}"></script>
+</body>
+</html>

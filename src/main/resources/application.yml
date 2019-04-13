@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+# DataSource
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/transfer?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+    username: root
+    password: 359869
+    #配置数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  # 热部署
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+
+
+  #静态资源文件配置
+
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  #文件上传配置
+  servlet:
+    multipart:
+      #单个文件上传的最大值
+      max-file-size: 100MB
+      #多个文件上传的最大值
+      max-request-size: 100MB
+
+# Mybatis配置
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: /mapper/*.xml
+  type-aliases-package: com.three.transfer.entity
+
+

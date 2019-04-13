@@ -1,0 +1,67 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background: url("../../images/bg/bg2.jpg") no-repeat;
+    background-size: cover;
+}
+
+/*导航栏*/
+.uk-navbar-left ul li h3{
+    font-family: Malvie;
+    font-size: 2vw;
+}
+
+.uk-navbar-right ul li a{
+    font-size: 1vw;
+}
+
+.root{
+    height: 100%;
+    width: 100%;
+
+}
+
+
+/*正文内容*/
+.wrapper {
+    height: 100%;
+    width: 100%;
+}
+    .wrapper .content{
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 8%;
+    }
+
+        .content-text-title h1 {
+            font-family: pmzd;
+            font-size: 6vw;
+
+        }
+
+        .content-text-subtitle h6 {
+            font-family: fzss;
+            font-size: 2vw;
+            margin: 0;
+        }
+
+        .cotext-text-botton{
+            margin-top: 6%;
+        }
+
+
+
+/*自定义字体*/
+@font-face {
+    font-family: 'pmzd';
+    src: url("../../fonts/PangMenZhengDaoCuShuTi-2.ttf");
+}
+@font-face {
+    font-family: 'Malvie';
+    src: url("../../fonts/Malvie-2.otf");
+}
+@font-face {
+    font-family: 'fzss';
+    src: url("../../fonts/fzss.ttf");
+}

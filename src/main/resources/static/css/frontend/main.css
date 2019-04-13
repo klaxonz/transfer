@@ -1,0 +1,399 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    min-width: 1000px;
+    min-height: 550px;
+}
+
+.root{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+/*Left*/
+.left-content{
+    height: 100%;
+    background-color: whitesmoke;
+}
+    .logo-container {
+        height: 16%;
+        background-color: whitesmoke;}
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            margin-top: 18%;
+            margin-left: 20%;
+            border-radius: 0.1em;
+            background-color: #0057c3;}
+
+            .logo .img {
+                width: 24px;
+                height: 24px;
+                background: url("../../images/icons/kangaroo_24.png") no-repeat;
+            }
+
+    .list-container {
+        height: 50%;
+        background-color: whitesmoke;
+        font-family: syst;
+        font-size: 14px;
+
+    }
+        .list-context{
+            margin-left: 6%;
+            margin-top: 12%;
+        }
+            .list-context li{
+                height: 36px;
+            }
+
+    .size-container {
+        width: 100%;
+    }
+        .size-context{
+            padding-top: 100px;
+        }
+
+        .size-container .used-size {
+            height: 32px;
+            width: 100%;
+            background-color: #0057c3;
+            color: white;
+            text-align: center;
+            border-radius: 2em;
+            font-size: 10px;
+        }
+                .used-size p{
+                    padding-top: 8px;
+                }
+
+        .size-container .upgrade-acount {
+            padding-top: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+.right-context {
+    height: 100%;
+    width: 96%;
+    margin: 0 auto;
+
+}
+    .nav-container {
+        height: 15%;
+    }
+        .search-wrapper {
+
+        }
+            .search-box{
+                width: 100%;
+            }
+
+            .search-box .search-icon-box {
+                width: 30px;
+                height: 30px;
+                float: left;
+                background: url("../../images/icons/search.png") no-repeat;
+            }
+            .search-box .search-input-box {
+                width: 200px;
+                height: 30px;
+                float: left;
+            }
+                .search-input-box input {
+                    height: 24px;
+                    width: 200px;
+                    border: none;
+                    margin-left: 5px;
+                    padding-left: 10px;
+                    outline: none;
+                }
+
+        .banner-wrapper{
+
+        }
+            .banner-box {
+                width: 100%;
+            }
+                .banner-box .log-out-icon-box {
+                    height: 24px;
+                    width: 24px;
+                    background: url("../../images/icons/signout.png") no-repeat;
+                }
+
+
+
+    .upload-component-container {
+        height: 10%;
+    }
+        .upload-container{
+            height: 100%;
+        }
+            .tips-box {
+                height: 100%;
+                font-family: zkgdht;
+                font-size: 24px;
+            }
+
+            .upload-box{
+                height: 100%;
+            }
+                .upload-button-box {
+                    height: 40px;
+                    width: 180px;
+                    cursor: pointer;
+                    border-radius: 2em;
+                    background-color: #0057c3;
+                }
+
+                .upload-wrapper {
+                    height: 24px;
+                    width: 108px;
+                    margin: 0 auto;
+                    padding-top: 8px;
+                }
+
+                    .upload-icon {
+                        height: 24px;
+                        width: 24px;
+                        float: left;
+                        background: url("../../images/icons/upload.png") no-repeat;
+                    }
+
+                    .upload-text{
+                        color: white;
+                        float: left;
+                        margin-left: 13px;
+                        padding-top: 2px;
+                        font-size: 12px;
+                    }
+
+
+
+
+
+    .file-info-container {
+        height: 65%;
+        /*background-color: #e72734;*/
+    }
+        .file-category-container {
+            height: 14%;
+            background-color: white;
+        }
+            .file-tab-wrapper{
+                margin-top: 15px;
+            }
+
+        .file-table-container {
+            height: 400px;
+
+        }
+            table {
+                height: 100%;
+                width: 100%;
+            }
+
+            table tr{
+                height: 80px;
+            }
+                tr .blank{
+                    width: 8px;
+                    padding: 0;
+                }
+
+                tr .icon-wrapper{
+                    width: 50px;
+                    height: 56px;
+                    padding: 0;
+                }
+                    .delete {
+                        height: 16px;
+                        width: 16px;
+                        background: url("../../images/icons/delete.png") no-repeat;
+                    }
+
+                    .folder {
+                        height: 16px;
+                        width: 16px;
+                        background: url("../../images/icons/folder.png") no-repeat;
+                    }
+
+                    .menu{
+                        height: 16px;
+                        width: 16px;
+                        background: url("../../images/icons/menu.png") no-repeat;
+                    }
+
+                tr .divider{
+                    height: 56px;
+                    width: 20px;
+                    border-right: 1px solid lightgrey;
+                    padding: 0;
+                }
+
+                tr .file-box {
+                    width: 500px;
+                    height: 56px;
+                    padding: 0;
+                    margin-left: 25px;
+                    /*background-color: #4292dc;*/
+                }
+                    .file {
+                        margin: 6px 0 6px 20px;
+                        width: 100%;
+                        height: 80%;
+                    }
+
+                        .file-name{
+                            font-size: small;
+                            color: black;
+                        }
+                        .file-size{
+                            width: 60px;
+                            font-size: small;
+                        }
+
+
+                    .file-box p {
+                        margin: 0;
+                        width: 350px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                tr .share-button-box {
+                    width: 80px;
+                    height: 32px;
+                    padding: 0;
+                    margin: 16px 0 11px 90px;
+                    background-color: #e72734;
+                    border-radius: 2em;
+                }
+
+                    .share-wrapper {
+                        width: 60px;
+                        height: 32px;
+                        margin-left: 8px;
+                    }
+
+                    .share-icon {
+                        height: 24px;
+                        width: 24px;
+                        float: left;
+                        margin-top: 2px;
+                        margin-right: 3px;
+                        background: url("../../images/icons/share.png") no-repeat;
+                    }
+
+                    .share-text {
+                        padding-top: 6px;
+                        font-size: small;
+                        color: white;
+                        float: left;
+                    }
+
+                tr .download-button-box {
+                    width: 80px;
+                    height: 32px;
+                    padding: 0;
+                    margin: 16px 0 0 20px;
+                    background-color: #0057c3;
+                    border-radius: 2em;
+                }
+
+                .download-wrapper {
+                    width: 60px;
+                    height: 32px;
+                    margin-left: 10px;
+                }
+
+                .download-icon {
+                    height: 16px;
+                    width: 16px;
+                    float: left;
+                    padding-left: 4px;
+                    margin-top: 7px;
+                    margin-left: 3px;
+                    background: url("../../images/icons/download.png") no-repeat;
+                }
+
+                .download-text {
+                    padding-top: 6px;
+                    font-size: small;
+                    color: white;
+                    float: left;
+                }
+
+
+/*文件上传*/
+.button-group{
+    height: 40px;
+    /*background-color: #e72734;*/
+}
+    .left-button-box{
+        float: left;
+    }
+
+    .right-button-box {
+        float: right;
+    }
+
+    .left-button-box button {
+        margin-right: 20px;
+        background-color: #e72734;
+        color: white;
+        border-radius: 2em;
+    }
+
+    .right-button-box button {
+        background-color: #0057c3;
+        color: white;
+        border-radius: 2em;
+    }
+
+.upload-files-container {
+    height: 85%;
+    overflow-y: scroll;
+
+}
+    tr .suspend-button-box {
+        width: 80px;
+        height: 32px;
+        padding: 0;
+        margin: 16px 0 11px 180px;
+    }
+
+        .suspend-button-box button {
+            background-color: #0057c3;
+            color: white;
+            border-radius: 2em;
+        }
+
+
+
+
+
+
+
+
+/*字体*/
+@font-face {
+    font-family: 'fzht';
+    src: url("../../fonts/fangzhengheti.ttf");
+}
+@font-face {
+    font-family: 'syst';
+    src: url("../../fonts/syst.otf");
+}
+@font-face {
+    font-family: 'zkgdht';
+    src: url("../../fonts/zkgd.ttf");
+}

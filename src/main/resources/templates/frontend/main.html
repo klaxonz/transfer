@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/uikit/3.0.3/css/uikit.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+    <link rel="stylesheet" th:href="@{/css/frontend/main.css}">
+    <link rel="stylesheet" th:href="@{/framework/uploader/webuploader.css}">
+
+
+    <title>Transfer</title>
+</head>
+<body>
+    <div class="root" uk-grid>
+        <!--左边导航栏-->
+        <div class="left-container uk-width-1-5">
+            <div class="left-content">
+                <div class="logo-container">
+                    <div class="logo uk-inline .uk-background-muted">
+                        <div class="img uk-position-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="list-container">
+                    <div class="uk-container list-context">
+                        <ul class="uk-list uk-link-reset">
+                            <li class="uk-active"><a href="#">文件</a> </li>
+                            <li><a href="#">收藏</a> </li>
+                            <li><a href="#">归档</a> </li>
+                            <li><a href="#">待办</a> </li>
+                            <li><a href="#">已删除</a> </li>
+                            <li><a href="#">好友</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="size-container">
+                    <div class="uk-container size-context">
+                        <div class="size-wrapper">
+                            <div class="used-size">
+                                <p>已使用容量
+                                    <span style="display: inline-block">4.5GB</span> /
+                                    <span style="display: inline-block">20GB</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="upgrade-acount">
+                            <a href="#" class="uk-link-reset"> 账户升级</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边正文布局-->
+        <div class="right-container uk-width-4-5">
+            <div class="right-context">
+                <div class="nav-container uk-grid-collapse uk-child-width-1-2" uk-grid>
+                    <div class="search-wrapper uk-inline">
+                        <div class="search-box uk-position-center-left">
+                            <div class="search-icon-box"></div>
+                            <div class="search-input-box">
+                                <input id="search-input" type="text" placeholder="搜索...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-wrapper uk-inline" >
+                        <div class="banner-box ">
+                            <div class="log-out-icon-box uk-position-center-right"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="upload-component-container">
+                    <div class="upload-container uk-grid-collapse uk-child-width-1-2" uk-grid>
+                        <div class="tips-box uk-text-lead">
+                            <span>最近使用文件</span>
+                        </div>
+                        <div class="upload-box uk-inline" >
+                            <div class="upload-button-box uk-position-right">
+                                <div class="upload-wrapper">
+                                    <div class="upload-icon"></div>
+                                    <div class="upload-text uk-text-lead uk-text-bold"><span>上传新文件</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="file-info-container">-->
+                    <!--<div class="file-category-container">-->
+                        <!--<div class="file-tab-wrapper">-->
+                            <!--<ul uk-tab>-->
+                                <!--<li class="uk-active"><a href="#">所有</a></li>-->
+                                <!--<li><a href="#">影视</a></li>-->
+                                <!--<li><a href="#">音乐</a></li>-->
+                                <!--<li><a href="#">书籍</a></li>-->
+                                <!--<li><a href="#">PDF</a></li>-->
+                                <!--<li><a href="#">加密</a></li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="file-table-container" style="overflow: scroll">-->
+                        <!--<table class="uk-table">-->
+                            <!--<tbody>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="blank"></td>-->
+                                    <!--<td class="delete-box icon-wrapper uk-inline" >-->
+                                        <!--<div class="delete uk-position-center "></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="folder-box icon-wrapper uk-inline">-->
+                                        <!--<div class="folder uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="menu-box icon-wrapper uk-inline">-->
+                                        <!--<div class="menu uk-position-center"></div>-->
+                                    <!--</td>-->
+
+                                    <!--<td class="divider uk-inline">-->
+                                        <!--<div class="uk-position-center"></div>-->
+                                    <!--</td>-->
+                                    <!--<td class="file-box uk-inline">-->
+                                        <!--<div class="file-wrapper uk-position-left" >-->
+                                            <!--<div class="file">-->
+                                                <!--<div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>-->
+                                                <!--<div class="file-size">23.37MB</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="share-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="share-wrapper">-->
+                                                <!--<div class="share-icon"></div>-->
+                                                <!--<div class="share-text uk-text-lead uk-text-bold"><span>分享</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td class="download-button-box uk-inline">-->
+                                        <!--<div class="uk-position-left">-->
+                                            <!--<div class="download-wrapper">-->
+                                                <!--<div class="download-icon"></div>-->
+                                                <!--<div class="download-text uk-text-lead uk-text-bold"><span>下载</span></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+
+                                <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="file-upload-container" style="height:65%;">
+                    <div class="button-group">
+                        <div class="button-box">
+                            <div class="left-button-box">
+                                <div class="uk-button-group">
+                                    <button class="uk-button uk-button-small">开始上传</button>
+                                    <button class="uk-button uk-button-small">全部删除</button>
+                                </div>
+                            </div>
+                            <div class="right-button-box">
+                                <div id="picker" class="uk-button-group">
+                                    <button class="uk-button uk-button-small">选择文件</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="total-progress-container">
+                        <progress id="progressbar" class="uk-progress" value="0" max="100"></progress>
+                    </div>
+                    <div class="upload-files-container">
+                        <div>
+                            <table class="uk-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="blank"></td>
+                                        <td class="delete-box icon-wrapper uk-inline" >
+                                            <div class="delete uk-position-center "></div>
+                                        </td>
+                                        <td class="folder-box icon-wrapper uk-inline">
+                                            <div class="folder uk-position-center"></div>
+                                        </td>
+                                        <td class="menu-box icon-wrapper uk-inline">
+                                            <div class="menu uk-position-center"></div>
+                                        </td>
+
+                                        <td class="divider uk-inline">
+                                            <div class="uk-position-center"></div>
+                                        </td>
+                                        <td class="file-box uk-inline">
+                                            <div class="file-wrapper uk-position-left" >
+                                                <div class="file">
+                                                    <div class="file-name uk-text-bold"><p>Java多线程高并发实战.pdf</p></div>
+                                                    <div class="file-size">23.37MB</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="suspend-button-box uk-inline">
+                                            <div class="uk-position-left">
+                                                <div class="uk-button-group">
+                                                    <button class="uk-button uk-button-small">开始</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script th:src="@{https://cdn.bootcss.com/jquery/3.3.1/jquery.js}"></script>
+<script th:src="@{https://cdn.bootcss.com/uikit/3.0.3/js/uikit.js}"></script>
+<script th:src="@{//qidian.gtimg.com/lulu/theme/peak/js/common/all.js}"></script>
+<script th:src="@{/framework/uploader/webuploader.js}"></script>
+<script th:src="@{/js/util/upload.js}"></script>
+</body>
+</html>
