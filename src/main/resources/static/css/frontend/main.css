@@ -128,6 +128,24 @@ body {
                     background: url("../../images/icons/signout.png") no-repeat;
                 }
 
+    .file-info-container{
+
+    }
+        .upload-file-button-wrapper{
+            width: 100px;
+            height: 100%;
+            margin: 0 20px 0 0 !important;
+        }
+            .upload-file-button-wrapper button {
+                background-color: #0057c3;
+                width: 100px !important;
+                height: 100% !important;
+                padding: 0 !important;
+                line-height: 32px !important;
+                color: white;
+                border-radius: 2em;
+
+            }
 
 
     .upload-component-container {
@@ -147,7 +165,7 @@ body {
             }
                 .upload-button-box {
                     height: 40px;
-                    width: 180px;
+                    width: 100px;
                     cursor: pointer;
                     border-radius: 2em;
                     background-color: #0057c3;
@@ -155,7 +173,8 @@ body {
 
                 .upload-wrapper {
                     height: 24px;
-                    width: 108px;
+                    width: 100%;
+                    text-align: center;
                     margin: 0 auto;
                     padding-top: 8px;
                 }
@@ -170,9 +189,8 @@ body {
                     .upload-text{
                         color: white;
                         float: left;
-                        margin-left: 13px;
-                        padding-top: 2px;
-                        font-size: 12px;
+                        margin: 0 auto !important;
+                        font-size: 13px;
                     }
 
 
@@ -195,12 +213,17 @@ body {
             height: 400px;
 
         }
-            table {
-                height: 100%;
+            .file-null-tips {
+                height: 90%;
                 width: 100%;
             }
 
-            table tr{
+            .file-table-container table {
+                width: 100%;
+
+            }
+
+            .file-table-container  tr{
                 height: 80px;
             }
                 tr .blank{
@@ -216,6 +239,7 @@ body {
                     .delete {
                         height: 16px;
                         width: 16px;
+                        cursor: pointer;
                         background: url("../../images/icons/delete.png") no-repeat;
                     }
 
@@ -239,7 +263,7 @@ body {
                 }
 
                 tr .file-box {
-                    width: 500px;
+                    width: 250px;
                     height: 56px;
                     padding: 0;
                     margin-left: 25px;
@@ -256,9 +280,18 @@ body {
                             color: black;
                         }
                         .file-size{
-                            width: 60px;
+                            width: 80px;
                             font-size: small;
                         }
+                     .valid-time{
+                         padding-bottom: 30px;
+                         font-size: 12px;
+                     }
+
+                     .valid-time p{
+                         margin: 0 !important;
+                         text-align: center;
+                     }
 
 
                     .file-box p {
@@ -273,7 +306,8 @@ body {
                     width: 80px;
                     height: 32px;
                     padding: 0;
-                    margin: 16px 0 11px 90px;
+                    cursor: pointer;
+                    margin: 3px 0 11px 50px;
                     background-color: #e72734;
                     border-radius: 2em;
                 }
@@ -304,7 +338,8 @@ body {
                     width: 80px;
                     height: 32px;
                     padding: 0;
-                    margin: 16px 0 0 20px;
+                    cursor: pointer;
+                    margin: 0 10px 8px 10px;
                     background-color: #0057c3;
                     border-radius: 2em;
                 }
@@ -353,26 +388,27 @@ body {
         border-radius: 2em;
     }
 
-    .right-button-box button {
-        background-color: #0057c3;
-        color: white;
-        border-radius: 2em;
-    }
+
+
+
+
+
 
 .upload-files-container {
-    height: 85%;
+    height: 400px;
     overflow-y: scroll;
+    ;
 
 }
     tr .suspend-button-box {
         width: 80px;
         height: 32px;
         padding: 0;
-        margin: 16px 0 11px 180px;
+        margin: 16px 0 11px 420px;
     }
 
         .suspend-button-box button {
-            background-color: #0057c3;
+            background-color: #FBC723;
             color: white;
             border-radius: 2em;
         }
@@ -380,7 +416,10 @@ body {
 
 
 
-
+/*公共样式*/
+.hidden{
+    display: none;
+}
 
 
 

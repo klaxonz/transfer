@@ -56,8 +56,7 @@ public class ShareController {
 
 
     @RequestMapping(value = "/share/{linkUrl}", method = RequestMethod.GET)
-    @ResponseBody
-    public void downloadShareFile(@PathVariable String linkUrl, HttpServletRequest request) {
+    public String downloadShareFile(@PathVariable String linkUrl, HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
         if (linkUrl != null && !"".equals(linkUrl)) {
             //查询该链接的相关信息
@@ -65,14 +64,17 @@ public class ShareController {
             if (fileLink == null) {
                 //TODO资源不存在
             }
-            TFile file = fileService.getFileByFileId(fileLink.getFileLinkId());
+            TFile file = fileService.getFileByFileId(fileLink.getFile().getFileId());
             request.setAttribute("fileName", file.getFileName());
             request.setAttribute("fileSize", file.getFileSize());
+            request.setAttribute("fileId", fileLink.getFile().getFileId());
+            request.setAttribute("fileLinkPassword", fileLink.getFileLinkPassword());
             //计算文件有效时间
-            long createTime = file.getCreateTime().getTime();
+            long validTimeMills = file.getCreateTime().getTime() + file.getFileValidTimeMills();
+            request.setAttribute("fileValidTime", validTimeMills);
 
-            //request.setAttribute("fileValidTime",);
         }
+        return "frontend/share";
     }
 
 

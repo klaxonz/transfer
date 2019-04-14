@@ -1,3 +1,11 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background: url("../../images/bg/bg4.jpg") no-repeat;
+    background-size: cover;
+}
+
+
 .login-info-container{
     height: 55px;
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.bootcss.com/uikit/3.0.3/css/uikit.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+    <link rel="stylesheet" th:href="@{/css/frontend/share.css}"/>
+    <title>分享</title>
+</head>
+<body>
+
+    <div class="root uk-inline">
+        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li id="title"><h3>File Transfer</h3></li>
+                </ul>
+            </div>
+
+            <div class="uk-navbar-right uk-text-bold">
+                <ul class="uk-navbar-nav">
+                    <li><a href="/transfer/register">注册</a></li>
+                    <li><a href="/transfer/login">登录</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="share-file-info-container uk-position-center">
+            <div class="logo">
+            </div>
+            <div class="file-name uk-text-large uk-text-bold uk-text-nowrap uk-text-truncate">
+                <p></p>
+            </div>
+            <div class="file-size uk-text-bold">
+                <p></p>
+            </div>
+            <div class="file-link-valid-time uk-text-bold">
+                <span>有效时间至  </span><span id="time"></span>
+            </div>
+            <div class="share-password-input uk-text-bold">
+                <span class="ui-input"><input id="share-num" placeholder="分享码"></span>
+            </div>
+            <div class="download-button uk-text-bold">
+                <button class="uk-button uk-button-default">下载</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/uikit/3.0.3/js/uikit.js"></script>
+<script src="//qidian.gtimg.com/lulu/theme/peak/js/common/all.js"></script>
+<script th:src="@{/js/util/util.js}"></script>
+<script th:src="@{/js/frontend/common.js}"></script>
+<script th:src="@{/js/frontend/share.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+    $(function (){
+        var fileName = [[${fileName}]];
+        var fileSize = [[${fileSize}]];
+        var fileValidTime = [[${fileValidTime}]];
+        var fileId = [[${fileId}]];
+        var fileLinkPasswod = [[${fileLinkPassword}]];
+        setFileName(fileName);
+        setFileSize(fileSize);
+        setFileValidTime(fileValidTime);
+        setFileLinkPasswod(fileLinkPasswod);
+        setDownloadButtonListen(fileId);
+
+    });
+</script>
+
+</body>
+</html>

@@ -62,7 +62,6 @@ public class FileController {
     @RequestMapping(value = "/BigFileUp")
     public Map<String, Object> fileUpload(String guid, String md5value, String chunks, String chunk, String id, String name,
                                           String type, String lastModifiedDate, long size, MultipartFile file, HttpServletRequest request) {
-        String fileName;
         Map<String, Object> modelMap = new HashMap<>();
         User user = (User) request.getSession().getAttribute("user");
         try {

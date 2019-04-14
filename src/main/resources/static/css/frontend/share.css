@@ -1,0 +1,92 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background: url("../../images/bg/bg4.jpg") no-repeat;
+    background-size: cover;
+}
+
+/*导航栏*/
+.uk-navbar-left ul li h3{
+    font-family: Malvie;
+    font-size: 2vw;
+    margin-left: 10px;
+}
+
+.uk-navbar-right ul li a{
+    font-size: 1vw;
+}
+
+
+#title{
+    cursor: pointer;
+}
+
+.root{
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.share-file-info-container {
+    height: 300px;
+    width: 400px;
+    margin-left: 30px;
+    margin-top: 30px;
+    /*background-color: white;*/
+    text-align: center;
+    color: black;
+}
+
+    .file-name{
+        color: black;
+    }
+        .file-name p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+
+    .share-password-input{
+        margin-top: 20px;
+    }
+
+    .download-button button{
+        background-color: white;
+    }
+
+    .download-button{
+        margin-top: 20px;
+    }
+
+    .download-button button {
+        width: 188px;
+        border-radius: 4px;
+    }
+
+
+
+/*common*/
+.hidden{
+    display: none;
+}
+
+
+
+
+
+
+/*自定义字体*/
+@font-face {
+    font-family: 'pmzd';
+    src: url("../../fonts/PangMenZhengDaoCuShuTi-2.ttf");
+}
+@font-face {
+    font-family: 'Malvie';
+    src: url("../../fonts/Malvie-2.otf");
+}
+@font-face {
+    font-family: 'fzss';
+    src: url("../../fonts/fzss.ttf");
+}

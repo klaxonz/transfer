@@ -722,7 +722,7 @@
          * @constructor
          * @grammar new Uploader( opts ) => Uploader
          * @example
-         * var uploader = WebUploader.Uploader({
+         * var webuploader = WebUploader.Uploader({
          *     swf: 'path_of_swf/Uploader.swf',
          *
          *     // 开起分片上传。
@@ -788,12 +788,12 @@
              * @example
              *
              * // 初始状态图片上传前不会压缩
-             * var uploader = new WebUploader.Uploader({
+             * var webuploader = new WebUploader.Uploader({
              *     compress: null;
              * });
              *
              * // 修改后图片上传前，尝试将图片压缩到1600 * 1600
-             * uploader.option( 'compress', {
+             * webuploader.option( 'compress', {
              *     width: 1600,
              *     height: 1600
              * });
@@ -876,7 +876,7 @@
             },
     
             /**
-             * 销毁 uploader 实例
+             * 销毁 webuploader 实例
              * @method destroy
              * @grammar destroy() => undefined
              */
@@ -958,7 +958,7 @@
                 });
     
                 parent.append( container );
-                parent.addClass('uploader-container');
+                parent.addClass('webuploader-container');
                 this._container = container;
                 this._parent = parent;
                 return container;
@@ -969,7 +969,7 @@
     
             destroy: function() {
                 this._container && this._container.remove();
-                this._parent && this._parent.removeClass('uploader-container');
+                this._parent && this._parent.removeClass('webuploader-container');
                 this.off();
             }
         });
@@ -1725,18 +1725,18 @@
                     opts = me.options,
                     button = opts.button;
     
-                button.addClass('uploader-pick');
+                button.addClass('webuploader-pick');
     
                 me.on( 'all', function( type ) {
                     var files;
     
                     switch ( type ) {
                         case 'mouseenter':
-                            button.addClass('uploader-pick-hover');
+                            button.addClass('webuploader-pick-hover');
                             break;
     
                         case 'mouseleave':
-                            button.removeClass('uploader-pick-hover');
+                            button.removeClass('webuploader-pick-hover');
                             break;
     
                         case 'change':
@@ -1784,7 +1784,7 @@
             enable: function() {
                 var btn = this.options.button;
     
-                btn.removeClass('uploader-pick-disable');
+                btn.removeClass('webuploader-pick-disable');
                 this.refresh();
             },
     
@@ -1795,14 +1795,14 @@
                     top: '-99999px'
                 });
     
-                btn.addClass('uploader-pick-disable');
+                btn.addClass('webuploader-pick-disable');
             },
     
             destroy: function() {
                 var btn = this.options.button;
                 $( window ).off( 'resize', this._resizeHandler );
-                btn.removeClass('uploader-pick-disable uploader-pick-hover ' +
-                    'uploader-pick');
+                btn.removeClass('webuploader-pick-disable webuploader-pick-hover ' +
+                    'webuploader-pick');
             }
         });
     
@@ -1883,7 +1883,7 @@
              * @description
              * 添加文件选择按钮，如果一个按钮不够，需要调用此方法来添加。参数跟[options.pick](#WebUploader:Uploader:options)一致。
              * @example
-             * uploader.addButton({
+             * webuploader.addButton({
              *     id: '#btnContainer',
              *     innerHTML: '选择文件'
              * });
@@ -2199,10 +2199,10 @@
              * @for Uploader
              * @example
              *
-             * uploader.on( 'fileQueued', function( file ) {
+             * webuploader.on( 'fileQueued', function( file ) {
              *     var $li = ...;
              *
-             *     uploader.makeThumb( file, function( error, ret ) {
+             *     webuploader.makeThumb( file, function( error, ret ) {
              *         if ( error ) {
              *             $li.text('预览错误');
              *         } else {
@@ -2842,7 +2842,7 @@
                 }
     
                 // 创建一个 html5 运行时的 placeholder
-                // 以至于外部添加原生 File 对象的时候能正确包裹一下供 uploader 使用。
+                // 以至于外部添加原生 File 对象的时候能正确包裹一下供 webuploader 使用。
                 deferred = Base.Deferred();
                 this.placeholder = runtime = new RuntimeClient('Placeholder');
                 runtime.connectRuntime({
@@ -2988,7 +2988,7 @@
              * @example
              *
              * $li.on('click', '.remove-this', function() {
-             *     uploader.removeFile( file );
+             *     webuploader.removeFile( file );
              * })
              */
             removeFile: function( file, remove ) {
@@ -3010,8 +3010,8 @@
              * @description 返回指定状态的文件集合，不传参数将返回所有状态的文件。
              * @for  Uploader
              * @example
-             * console.log( uploader.getFiles() );    // => all files
-             * console.log( uploader.getFiles('error') )    // => all error files.
+             * console.log( webuploader.getFiles() );    // => all files
+             * console.log( webuploader.getFiles('error') )    // => all error files.
              */
             getFiles: function() {
                 return this.queue.getFiles.apply( this.queue, arguments );
@@ -3029,7 +3029,7 @@
              * @for  Uploader
              * @example
              * function retry() {
-             *     uploader.retry();
+             *     webuploader.retry();
              * }
              */
             retry: function( file, noForceStart ) {
@@ -3067,7 +3067,7 @@
     
             /**
              * @event reset
-             * @description 当 uploader 被重置的时候触发。
+             * @description 当 webuploader 被重置的时候触发。
              * @for  Uploader
              */
     
@@ -3077,7 +3077,7 @@
              * @description 重置uploader。目前只重置了队列。
              * @for  Uploader
              * @example
-             * uploader.reset();
+             * webuploader.reset();
              */
             reset: function() {
                 this.owner.trigger('reset');
@@ -3635,7 +3635,7 @@
              * @example
              *
              * $li.on('click', '.remove-this', function() {
-             *     uploader.cancelFile( file );
+             *     webuploader.cancelFile( file );
              * })
              */
             cancelFile: function( file ) {
@@ -4149,8 +4149,8 @@
          * @param {String} type 错误类型。
          * @description 当validate不通过时，会以派送错误事件的形式通知调用者。通过`upload.on('error', handler)`可以捕获到此类错误，目前有以下错误会在特定的情况下派送错来。
          *
-         * * `Q_EXCEED_NUM_LIMIT` 在设置了`fileNumLimit`且尝试给`uploader`添加的文件数量超出这个值时派送。
-         * * `Q_EXCEED_SIZE_LIMIT` 在设置了`Q_EXCEED_SIZE_LIMIT`且尝试给`uploader`添加的文件总大小超出这个值时派送。
+         * * `Q_EXCEED_NUM_LIMIT` 在设置了`fileNumLimit`且尝试给`webuploader`添加的文件数量超出这个值时派送。
+         * * `Q_EXCEED_SIZE_LIMIT` 在设置了`Q_EXCEED_SIZE_LIMIT`且尝试给`webuploader`添加的文件总大小超出这个值时派送。
          * * `Q_TYPE_DENIED` 当文件类型不满足时触发。。
          * @for  Uploader
          */
@@ -4417,10 +4417,10 @@
              * @for Uploader
              * @example
              *
-             * uploader.on( 'fileQueued', function( file ) {
+             * webuploader.on( 'fileQueued', function( file ) {
              *     var $li = ...;
              *
-             *     uploader.md5File( file )
+             *     webuploader.md5File( file )
              *
              *         // 及时显示进度
              *         .progress(function(percentage) {
@@ -4593,7 +4593,7 @@
     ], function( Base, Html5Runtime, File ) {
     
         var $ = Base.$,
-            prefix = 'uploader-dnd-';
+            prefix = 'webuploader-dnd-';
     
         return Html5Runtime.register( 'DragAndDrop', {
             init: function() {
@@ -4881,7 +4881,7 @@
     
                 input.attr( 'type', 'file' );
                 input.attr( 'name', opts.name );
-                input.addClass('uploader-element-invisible');
+                input.addClass('webuploader-element-invisible');
     
                 label.on( 'click', function() {
                     input.trigger('click');
@@ -8004,7 +8004,7 @@
         return Base;
     });
     /**
-     * @fileOverview 日志组件，主要用来收集错误信息，可以帮助 uploader 更好的定位问题和发展。
+     * @fileOverview 日志组件，主要用来收集错误信息，可以帮助 webuploader 更好的定位问题和发展。
      *
      * 如果您不想要启用此功能，请在打包的时候去掉 log 模块。
      *
@@ -8038,7 +8038,7 @@
     
         base = {
             dv: 3,
-            master: 'uploader',
+            master: 'webuploader',
             online: /test/.exec(product) ? 0 : 1,
             module: '',
             product: product,
