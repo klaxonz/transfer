@@ -244,7 +244,8 @@ h2 {
 
 .main {
   margin-top: 30px;
-  background: #f8f8f8;}
+  /*background: #f8f8f8;*/
+}
 
 .clear {
   clear: both; }
@@ -255,13 +256,13 @@ body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;
-  background: #f8f8f8;
+  /*background: #f8f8f8;*/
   font-weight: 400;
   font-family: Poppins;
 }
 
 .container {
-  width: 900px;
+  width: 400px;
   background: #fff;
   margin: 0 auto;
   box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
@@ -317,7 +318,7 @@ body {
   padding: 45px 0; }
 
 .signup-form, .signup-image, .signin-form, .signin-image {
-  width: 50%;
+  width: 65%;
   overflow: hidden; }
 
 .signup-image {
@@ -364,9 +365,8 @@ figure {
   color: #222; }
 
 .signup-form {
-  margin-left: 75px;
-  margin-right: 75px;
-  padding-left: 34px; }
+  margin: 0 auto;
+}
 
 .register-form {
   width: 100%; }
@@ -384,8 +384,10 @@ input {
   border: none;
   border-bottom: 1px solid #999;
   padding: 6px 30px;
+  background-color: transparent;
   font-family: Poppins;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
   input::-webkit-input-placeholder {
     color: #999; }
   input::-moz-placeholder {
@@ -568,8 +570,7 @@ label.valid {
   background: #e72734; }
 
 .signin-form {
-  margin-right: 90px;
-  margin-left: 80px; }
+  margin: 0 auto}
 
 .signin-image {
   margin-left: 110px;
@@ -596,12 +597,6 @@ label.valid {
     -o-justify-content: center;
     -ms-justify-content: center; }
 
-  .signup-form {
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    /* box-sizing: border-box; */
-    padding: 0 30px; }
 
   .signin-image {
     margin-left: 0px;

@@ -1,6 +1,7 @@
 html {
     height: 100%;
     width: 100%;
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
 
 body {
@@ -8,28 +9,27 @@ body {
     width: 100%;
     min-width: 1000px;
     min-height: 550px;
+
 }
 
 .root{
     height: 100%;
     width: 100%;
-    background-color: white;
 }
 
 /*Left*/
 .left-content{
     height: 100%;
-    background-color: whitesmoke;
 }
     .logo-container {
         height: 16%;
-        background-color: whitesmoke;}
+    }
 
         .logo {
             width: 32px;
             height: 32px;
             margin-top: 18%;
-            margin-left: 20%;
+            margin-left: 23%;
             border-radius: 0.1em;
             background-color: #0057c3;}
 
@@ -41,14 +41,13 @@ body {
 
     .list-container {
         height: 50%;
-        background-color: whitesmoke;
         font-family: syst;
         font-size: 14px;
 
     }
         .list-context{
             margin-left: 6%;
-            margin-top: 12%;
+            margin-top: 8%;
         }
             .list-context li{
                 height: 36px;
@@ -114,6 +113,7 @@ body {
                     margin-left: 5px;
                     padding-left: 10px;
                     outline: none;
+                    background: transparent;
                 }
 
         .banner-wrapper{
@@ -203,7 +203,7 @@ body {
     }
         .file-category-container {
             height: 14%;
-            background-color: white;
+
         }
             .file-tab-wrapper{
                 margin-top: 15px;

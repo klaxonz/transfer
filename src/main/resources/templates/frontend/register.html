@@ -9,11 +9,26 @@
     <!-- Font Icon -->
     <link rel="stylesheet" th:href="@{/fonts/material_icon/css/material_design_iconic_font.min.css}">
     <link rel="stylesheet" th:href="@{https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css}">
+    <link href="https://cdn.bootcss.com/uikit/3.0.3/css/uikit.css" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/css/frontend/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/frontend/register.css}"/>
 
 </head>
 <body>
+<nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li><a href="#"><h3>File Transfer</h3></a></li>
+        </ul>
+    </div>
+
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li><a href="/transfer/register">注册</a></li>
+            <li><a href="/transfer/login">登录</a></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="main">
     <!-- Sign up form -->
@@ -56,10 +71,10 @@
                         </div>
                     </form>
                 </div>
-                <div class="signup-image">
-                    <figure><img src="" th:src="@{/images/signin.jpg}" alt="sing up image"></figure>
-                    <a href="#" class="signup-image-link">已经拥有账号</a>
-                </div>
+                <!--<div class="signup-image">-->
+                    <!--<figure><img src="" th:src="@{/images/signin.jpg}" alt="sing up image"></figure>-->
+                    <!--<a href="#" class="signup-image-link">已经拥有账号</a>-->
+                <!--</div>-->
             </div>
         </div>
     </section>
@@ -68,6 +83,7 @@
 <!-- JS -->
 <script src="" th:src="@{https://cdn.bootcss.com/jquery/3.3.1/jquery.js}"></script>
 <script th:src="@{https://qidian.gtimg.com/lulu/theme/peak/js/common/all.js}"></script>
+<script th:src="@{https://cdn.bootcss.com/uikit/3.0.3/js/uikit.js}"></script>
 <script src="" th:src="@{/js/frontend/register.js}"></script>
 </body>
 </html>

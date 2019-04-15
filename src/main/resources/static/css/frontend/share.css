@@ -9,7 +9,7 @@ html, body {
 .uk-navbar-left ul li h3{
     font-family: Malvie;
     font-size: 2vw;
-    margin-left: 10px;
+    margin: 0 0 0 20px;
 }
 
 .uk-navbar-right ul li a{

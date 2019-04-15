@@ -1,8 +1,19 @@
 html, body {
     height: 100%;
     width: 100%;
-    background: url("../../images/bg/bg4.jpg") no-repeat;
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
     background-size: cover;
+}
+
+/*导航栏*/
+.uk-navbar-left ul li h3{
+    font-family: Malvie;
+    font-size: 2vw;
+    margin: 0;
+}
+
+.uk-navbar-right ul li a{
+    font-size: 1vw;
 }
 
 .info-container{
@@ -17,4 +28,19 @@ html, body {
     height: 100%;
     width: 100%;
     border: none;
+}
+
+
+/*自定义字体*/
+@font-face {
+    font-family: 'pmzd';
+    src: url("../../fonts/PangMenZhengDaoCuShuTi-2.ttf");
+}
+@font-face {
+    font-family: 'Malvie';
+    src: url("../../fonts/Malvie-2.otf");
+}
+@font-face {
+    font-family: 'fzss';
+    src: url("../../fonts/fzss.ttf");
 }
