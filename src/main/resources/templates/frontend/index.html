@@ -3,6 +3,7 @@
 <head>
     <title>Transfer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="#" />
     <link href="https://cdn.bootcss.com/uikit/3.0.3/css/uikit.css" rel="stylesheet" />
     <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
     <link rel="stylesheet" th:href="@{/css/frontend/index.css}"/>
@@ -28,9 +29,14 @@
 
         <div class="wrapper">
             <div class="content">
-                <div class="content-text-title">
-                    <h1>临时文件中转站</h1>
+                <!--<div class="content-text-title">-->
+                    <!--<h1>临时文件中转站</h1>-->
+                <!--</div>-->
+                <div class="img-box" style="height: 400px; width: 600px;margin: 0 auto;padding-top: 20px">
+                    <img style="width: 100%" th:src="@{/images/bg/yellow_image.jpg}">
                 </div>
+
+
                 <div class="content-text-subtitle">
                     <h6 class="">方便，快捷，高效的临时文件存储</h6>
                     <h6 class="">实时的文件预览，管理</h6>
@@ -40,6 +46,8 @@
                 </div>
             </div>
         </div>
+
+
 
     </div>
 
@@ -51,5 +59,7 @@
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script src="https://cdn.bootcss.com/uikit/3.0.3/js/uikit.js"></script>
 <script src="//qidian.gtimg.com/lulu/theme/peak/js/common/all.js"></script>
+<script th:src="@{/framework/gradientify/jquery_gradientify.js}"></script>
+<script th:src="@{/js/frontend/common.js}"></script>
 </body>
 </html>

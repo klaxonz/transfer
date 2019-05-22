@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ShareLinkUtil {
 
-    private static String SHARE_LINK_PREFIX = "localhost:8080/transfer/share/";
+    private static String SHARE_LINK_PREFIX = "http://localhost:8080/transfer/share/";
 
 
     /**

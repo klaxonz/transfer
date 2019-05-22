@@ -256,11 +256,8 @@ public class FileUtil {
         // set content attributes for the response
         response.setContentType(mimeType);
         // response.setContentLength((int) downloadFile.length());
-
         // set headers for the response
-
         String fileName = new String(file.getName().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
-
         String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"", fileName);
         response.setHeader(headerKey, headerValue);
@@ -340,6 +337,5 @@ public class FileUtil {
 
 
     }
-
 
 }

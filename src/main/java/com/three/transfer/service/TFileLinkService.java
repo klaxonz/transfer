@@ -21,6 +21,11 @@ public interface TFileLinkService {
     TFileLink getFileLinkByLinkAddr(String linkAddr);
 
 
-
+    /**
+     * 通过文件Id删除该文件的分享链接
+    * @param fileId
+     * @return
+     */
+    TFileLinkExecution deleteFileLink(int fileId);
 
 }

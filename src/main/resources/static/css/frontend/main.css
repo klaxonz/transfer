@@ -1,7 +1,6 @@
 html {
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
 
 body {
@@ -42,7 +41,8 @@ body {
     .list-container {
         height: 50%;
         font-family: syst;
-        font-size: 14px;
+        font-size: 16px;
+        color: #222222;
 
     }
         .list-context{
@@ -52,6 +52,7 @@ body {
             .list-context li{
                 height: 36px;
             }
+
 
     .size-container {
         width: 100%;
@@ -116,16 +117,21 @@ body {
                     background: transparent;
                 }
 
-        .banner-wrapper{
 
-        }
-            .banner-box {
-                width: 100%;
-            }
-                .banner-box .log-out-icon-box {
+                 .home-icon-box{
                     height: 24px;
                     width: 24px;
+                    margin: 39px 0 0 440px;
+                    cursor: pointer;
+                    background: url("../../images/icons/home.png") no-repeat;
+                }
+
+                .log-out-icon-box {
+                    height: 24px;
+                    width: 24px;
+                    cursor: pointer;
                     background: url("../../images/icons/signout.png") no-repeat;
+
                 }
 
     .file-info-container{
@@ -203,6 +209,7 @@ body {
     }
         .file-category-container {
             height: 14%;
+            color: black !important;
 
         }
             .file-tab-wrapper{
@@ -210,12 +217,13 @@ body {
             }
 
         .file-table-container {
-            height: 400px;
+            height: 380px;
 
         }
             .file-null-tips {
                 height: 90%;
                 width: 100%;
+                color: black;
             }
 
             .file-table-container table {
@@ -282,10 +290,13 @@ body {
                         .file-size{
                             width: 80px;
                             font-size: small;
+                            color: black;
                         }
                      .valid-time{
                          padding-bottom: 30px;
+                         padding-left: 20px;
                          font-size: 12px;
+                         color: black;
                      }
 
                      .valid-time p{
@@ -340,7 +351,7 @@ body {
                     padding: 0;
                     cursor: pointer;
                     margin: 0 10px 8px 10px;
-                    background-color: #0057c3;
+                    background-color:#009ACD;
                     border-radius: 2em;
                 }
 
@@ -369,6 +380,14 @@ body {
 
 
 /*文件上传*/
+
+.file-upload-container button{
+    font-size: 14px !important;
+}
+    .file-upload-container hr{
+        margin-top: 0 !important;
+    }
+
 .button-group{
     height: 40px;
     /*background-color: #e72734;*/
@@ -388,6 +407,11 @@ body {
         border-radius: 2em;
     }
 
+    .total-progress-container progress{
+        height: 8px;
+        background-color: transparent;
+    }
+
 
 
 
@@ -395,8 +419,8 @@ body {
 
 
 .upload-files-container {
-    height: 400px;
-    overflow-y: scroll;
+    height: 380px;
+    overflow-y: auto;
     ;
 
 }
@@ -404,7 +428,7 @@ body {
         width: 80px;
         height: 32px;
         padding: 0;
-        margin: 16px 0 11px 420px;
+        margin: 16px 0 11px 440px;
     }
 
         .suspend-button-box button {
@@ -412,6 +436,11 @@ body {
             color: white;
             border-radius: 2em;
         }
+
+    #progressbar{
+        margin-bottom: 10px;
+        background-color: black !important;
+    }
 
 
 
@@ -421,6 +450,12 @@ body {
     display: none;
 }
 
+
+
+.uk-tab > * > a {
+
+     font-size: 14px !important;
+}
 
 
 /*字体*/

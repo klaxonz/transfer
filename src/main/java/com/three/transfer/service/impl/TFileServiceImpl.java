@@ -4,12 +4,15 @@ import com.three.transfer.dao.TFileDao;
 import com.three.transfer.dao.UserDao;
 import com.three.transfer.dto.FileHolder;
 import com.three.transfer.dto.TFileExecution;
+import com.three.transfer.dto.TFileLinkExecution;
 import com.three.transfer.entity.TFile;
 import com.three.transfer.entity.TFileCategory;
 import com.three.transfer.entity.UploadInfo;
 import com.three.transfer.entity.User;
+import com.three.transfer.enums.TFileLinkStateEnum;
 import com.three.transfer.enums.TFileStateEnum;
 import com.three.transfer.exceptions.TFileException;
+import com.three.transfer.service.TFileLinkService;
 import com.three.transfer.service.TFileService;
 import com.three.transfer.util.FileUtil;
 import com.three.transfer.util.PathUtil;
@@ -29,6 +32,10 @@ public class TFileServiceImpl implements TFileService {
     private TFileDao fileDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private TFileLinkService fileLinkService;
+
+    private long validTimeMills = 604800000;
 
     @Override
     @Transactional
@@ -62,6 +69,8 @@ public class TFileServiceImpl implements TFileService {
                 fileInfo.setCreateTime(new Date());
                 fileInfo.setFileSize(file.getSize());
                 fileInfo.setLastEditTime(new Date());
+                Date validTime = new Date(System.currentTimeMillis() + validTimeMills);
+                fileInfo.setFileValidTime(validTime);
                 fileInfo.setFileCategory(fileCategory);
                 int res = fileDao.insertFile(fileInfo);
 
@@ -129,6 +138,8 @@ public class TFileServiceImpl implements TFileService {
                                 fileInfo.setFileCategory(fileCategory);
                                 fileInfo.setLastEditTime(new Date());
                                 fileInfo.setCreateTime(new Date());
+                                Date validTime = new Date(System.currentTimeMillis() + validTimeMills);
+                                fileInfo.setFileValidTime(validTime);
                                 fileInfo.setFilePath(PathUtil.getFilePath(user.getUserId()));
                                 fileInfo.setFileName(info.getFileName());
                                 fileInfo.setFileSize(info.getSize());
@@ -149,7 +160,6 @@ public class TFileServiceImpl implements TFileService {
                         if (fileExecution.getState() != TFileStateEnum.SUCCESS.getState()) {
                             throw new RuntimeException("文件上传失败");
                         }
-
                     }
                 } else {
                     throw new RuntimeException("文件上传失败");
@@ -174,6 +184,11 @@ public class TFileServiceImpl implements TFileService {
         String filePath = PathUtil.getFileBasePath() + file.getFilePath() + file.getFileName();
         boolean result = FileUtil.deleteFile(filePath);
         if (!result) {
+            return new TFileExecution(TFileStateEnum.INNER_ERROR);
+        }
+        //如果文件有分享链接，则删除
+        TFileLinkExecution fileLinkExecution = fileLinkService.deleteFileLink(fileId);
+        if (fileLinkExecution.getState() != TFileLinkStateEnum.SUCCESS.getState()) {
             return new TFileExecution(TFileStateEnum.INNER_ERROR);
         }
         //更新数据库文件信息

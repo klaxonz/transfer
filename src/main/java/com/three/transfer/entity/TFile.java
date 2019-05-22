@@ -15,7 +15,7 @@ public class TFile {
     private Long fileSize;
     private Date createTime;
     private Date lastEditTime;
-    private long fileValidTimeMills;
+    private Date fileValidTime;
     private int fileDownloadTime;
     private TFileCategory fileCategory;
     private User user;

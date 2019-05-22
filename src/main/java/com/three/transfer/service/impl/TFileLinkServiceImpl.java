@@ -61,4 +61,14 @@ public class TFileLinkServiceImpl implements TFileLinkService {
     public TFileLink getFileLinkByLinkAddr(String linkAddr) {
         return fileLinkDao.getLinkByLinkName(linkAddr);
     }
+
+    @Override
+    public TFileLinkExecution deleteFileLink(int fileId) {
+        if (fileId < 0) {
+            return new TFileLinkExecution(TFileLinkStateEnum.INNER_ERROR);
+        }
+        fileLinkDao.deleteLinkByFileId(fileId);
+        return new TFileLinkExecution(TFileLinkStateEnum.SUCCESS);
+    }
+
 }

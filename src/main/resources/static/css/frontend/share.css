@@ -1,8 +1,6 @@
 html, body {
     height: 100%;
     width: 100%;
-    background: url("../../images/bg/bg4.jpg") no-repeat;
-    background-size: cover;
 }
 
 /*导航栏*/

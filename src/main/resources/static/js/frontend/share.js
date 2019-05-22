@@ -32,17 +32,21 @@ function setFileValidTime(fileValidTime) {
 
 function setDownloadButtonListen(fileId) {
     $('body').on('click', '.download-button button', function () {
-        var url = downloadFileUrl + "?fileId=" + fileId;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function (data) {
-            }
-        });
 
+        var url = downloadFileUrl;
+        var form = $("<form>");
+        form.attr("style","display:none");
+        form.attr("method","get");
+        form.attr("action", url);
+        var input = $("<input>");
+        input.attr("type","hidden");
+        input.attr("name", "fileId");
+        input.attr("value", fileId);
+
+        $("body").append(form);
+        form.append(input);
+        form.submit();
+        form.remove();
     });
 }
 

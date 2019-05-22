@@ -24,7 +24,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    public User getUserByName(String username);
+    User getUserByName(String username);
 
     /**
      * 修改用户信息

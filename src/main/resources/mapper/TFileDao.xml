@@ -12,7 +12,7 @@
         <result column="last_edit_time" property="lastEditTime"/>
         <result column="file_download_time" property="fileDownloadTime"/>
         <result column="file_size" property="fileSize"/>
-        <result column="file_valid_time_mills" property="fileValidTimeMills"/>
+        <result column="file_valid_time" property="fileValidTime"/>
         <association property="user" column="user_id" javaType="com.three.transfer.entity.User">
             <id column="user_id" property="userId"/>
         </association>
@@ -32,10 +32,10 @@
             useGeneratedKeys="true" keyColumn="file_id" keyProperty="fileId">
 
         insert into tb_file(file_name, file_category_id, user_id, file_size, file_path, create_time, last_edit_time,
-                            file_download_time, file_valid_time_mills)
+                            file_download_time, file_valid_time)
         VALUES (
                   #{fileName}, #{fileCategory.fileCategoryId}, #{user.userId},#{fileSize}, #{filePath},
-                  #{createTime}, #{lastEditTime}, #{fileDownloadTime}, #{fileValidTimeMills}
+                  #{createTime}, #{lastEditTime}, #{fileDownloadTime}, #{fileValidTime}
                 );
     </insert>
 
@@ -49,7 +49,7 @@
                f.create_time,
                f.last_edit_time,
                f.file_download_time,
-               f.file_valid_time_mills,
+               f.file_valid_time,
                fc.file_category_id,
                u.user_id
         from tb_file as f, tb_file_category as fc, tb_user as u
@@ -78,7 +78,7 @@
                f.create_time,
                f.last_edit_time,
                f.file_download_time,
-               f.file_valid_time_mills,
+               f.file_valid_time,
                fc.file_category_id,
                u.user_id
         from tb_file as f, tb_file_category as fc, tb_user as u
@@ -100,7 +100,7 @@
                f.create_time,
                f.last_edit_time,
                f.file_download_time,
-               f.file_valid_time_mills,
+               f.file_valid_time,
                fc.file_category_id,
                u.user_id
         from tb_file as f, tb_file_category as fc, tb_user as u

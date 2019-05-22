@@ -70,7 +70,7 @@ public class ShareController {
             request.setAttribute("fileId", fileLink.getFile().getFileId());
             request.setAttribute("fileLinkPassword", fileLink.getFileLinkPassword());
             //计算文件有效时间
-            long validTimeMills = file.getCreateTime().getTime() + file.getFileValidTimeMills();
+            long validTimeMills =  file.getFileValidTime().getTime();
             request.setAttribute("fileValidTime", validTimeMills);
 
         }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 @Controller
@@ -68,6 +68,7 @@ public class FileController {
             int index;
             String ext = name.substring(name.lastIndexOf("."));
             UploadInfo info = new UploadInfo(md5value, chunk, chunks, name, ext, size);
+            user = userService.getUserById(user.getUserId());
             TFileExecution fileExecution = fileService.addShardFile(info, file, user);
             if (fileExecution.getState() == TFileStateEnum.SUCCESS.getState()) {
                 modelMap.put("code", 1);
@@ -78,7 +79,6 @@ public class FileController {
                 modelMap.put("data", null);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             modelMap.put("code", 0);
             modelMap.put("msg", "上传失败");
             modelMap.put("data", null);
@@ -105,7 +105,7 @@ public class FileController {
                 fileInfo.setFileName(file.getFileName());
                 fileInfo.setFileSize(file.getFileSize());
                 fileInfo.setUploadTime(file.getCreateTime());
-                fileInfo.setValidTime(file.getCreateTime());
+                fileInfo.setValidTime(file.getFileValidTime());
                 fileInfo.setFileCategoryId(file.getFileCategory().getFileCategoryId());
                 fileInfo.setUserId(file.getUser().getUserId());
                 fileInfoList.add(fileInfo);
@@ -147,23 +147,14 @@ public class FileController {
     }
 
     @RequestMapping(value = "/download",method = RequestMethod.GET)
-    public Map<String, Object> downloadFile(int fileId, HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> modelMap = new HashMap<>();
+    public void downloadFile(int fileId, HttpServletRequest request, HttpServletResponse response) {
 
         if (fileId >= 0) {
             File file = fileService.getFile(fileId);
             if (file != null) {
-               FileUtil.download(file, request, response);
-            } else {
-                modelMap.put("success", false);
-                modelMap.put("errMsg", "文件不存在");
+                FileUtil.download(file, request, response);
             }
-
-        } else {
-            modelMap.put("success", false);
-            modelMap.put("errMsg", "文件id错误");
         }
-        return modelMap;
 
     }
 

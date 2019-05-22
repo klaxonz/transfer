@@ -30,26 +30,18 @@ $(function () {
                         $(location).attr('href', loginUrl);
                         //重定向到登录页面
                     } else {
-                        //弹框显示注册失败
-                        $.lightTip.error('注册失败');
-                        console.log('注册失败');
+                        //用户注册失败
+                        errorToast("注册失败", "请检查注册信息是否填写正确");
+
                     }
                 }
             });
         }else {
-            console.log("failure")
+            //前端注册信息检验失败
+            errorToast("注册失败", "请检查注册信息是否填写正确");
         }
 
 
-    });
-
-    $("#submit").mouseover(function () {
-        if (!isValid(checkInfoValue)) {
-            $("#submit").css("background-color", "#d9d9f3");
-        }
-    });
-    $("#submit").mouseout(function () {
-        $("#submit").css("background-color","#6dabe4");
     });
 
 
@@ -85,7 +77,7 @@ $(function () {
     //用户名校验
     $("#name").on("change", function () {
         var regex = /^[a-zA-Z0-9_-]{3,16}$/,
-            tips = "用户名为3~16位的数字，字母，下划线组合",
+            tips = "用户名为3~16位的数字，字母，下划线",
             id = 'name',
             uploadValue = 'userName';
         checkInfo(this, id, uploadValue, regex, tips);

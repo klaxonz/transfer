@@ -279,7 +279,7 @@ $(function () {
         var fileId = '#' + file.id;
         var $tr = $(fileId);
         var $button = $tr.find("button");
-        $button.css("background", "#333333");
+        $button.css("background", "#39f");
         $button.css("margin-left", "12px");
         $button.text("完成");
         //给该文件增加上传完成信息

@@ -1,6 +1,16 @@
 $(function () {
 
 
+
+
+
+    //设置滚动条样式
+    $(window).on("load", function () {
+        $(".file-table-container, .upload-files-container").mCustomScrollbar({
+            axis: "y",
+            theme: "dark"
+        });
+    });
     //获取用户信息
     getUserInfo();
     //获取用户已上传文件列表
@@ -19,35 +29,60 @@ $(function () {
         getFileListInfo();
     });
 
+    //顶部右侧导航栏按钮
+    $('.home-icon-box').on('click', function () {
+        $(location).attr('href', indexPageUrl);
+    });
+
+    $('.log-out-icon-box').on('click', function () {
+
+        $.ajax({
+            url: createShareLinkUrl,
+            type: 'GET',
+            async: false,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+            }
+        });
+        $(location).attr('href', logoutUrl);
+    });
+
+
     //删除已上传文件
-    $('body').on('click' , '.file-table-container .delete',function () {
+    $('body').on('click', '.file-table-container .delete', function () {
         var elBtn = $(this);
-        new Dialog().confirm('\
-            <h6>您确定要删除此文件吗？</h6>\
-            <p>文件删除后将不可找回，请谨慎操作！</p>'
-            , {
-                buttons: [{
-                    value: "删除",
-                    events: function(event) {
+        $.confirm({
+            icon: 'fa fa-warning',
+            title: '删除文件',
+            content: '是否确认删除文件，删除不可找回!',
+            buttons: {
+                tryAgain: {
+                    text: '确认',
+                    action: function () {
                         deleteFile(elBtn);
-                        event.data.dialog.remove();
                     }
-                }, {}]
-            });
+                },
+                close: {
+                    text: '取消'
+                }
+            }
+        });
+
     });
 
 
     $('body').on('click', '.download-button-box', function () {
         var downloadBtn = $(this);
         downloadFile(downloadBtn);
-        console.log("test");
-
     });
 
     $('body').on('click', '.share-button-box', function () {
         var shareBtn = $(this);
         createFileShareLink(shareBtn);
     });
+
 
     function createFileShareLink(obj) {
         var shareLink;
@@ -68,9 +103,9 @@ $(function () {
                 if (data.success) {
                     shareLink = data.shareLink;
                     copyToClipboard(shareLink);
-                    console.log('获取分享链接成功');
+                    successAlert("操作成功", "获取分享链接成功,链接已复制至剪切板!")
                 } else {
-                    console.log("创建文件分享链接失败");
+                    errorAlert("操作失败", "获取分享链接失败");
                 }
             }
         });
@@ -80,19 +115,19 @@ $(function () {
         var $tr = $(obj).parents("tr");
         var tempFileId = $tr.attr("id");
         var fileId = tempFileId.slice(tempFileId.indexOf('_') + 1);
-        var url = downloadFileUrl + "?fileId=" + fileId;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function (data) {
-                if (!data.success) {
-                    errorAlert("下载文件失败");
-                }
-            }
-        });
+        var url = downloadFileUrl;
+        var form = $("<form>");
+        form.attr("style","display:none");
+        form.attr("method","get");
+        form.attr("action", url);
+        var input = $("<input>");
+        input.attr("type","hidden");
+        input.attr("name", "fileId");
+        input.attr("value", fileId);
+        $("body").append(form);
+        form.append(input);
+        form.submit();
+        form.remove();
     }
 
 
@@ -111,11 +146,11 @@ $(function () {
                 if (data.success) {
                     getUserInfo();
                     getFileListInfo();
-                    successAlert("删除成功");
-                    console.log('获取成功');
+                    successAlert("操作成功", "文件已成功删除!");
+
                 } else {
-                    errorAlert("删除失败");
-                    console.log('获取失败');
+                    errorAlert("操作失败", "em...文件删除失败");
+
                 }
             }
         });
@@ -123,17 +158,8 @@ $(function () {
 
 
 
-    function successAlert(msg) {
-        new Dialog().alert(msg, {
-            type: 'success'
-        });
-    }
 
-    function errorAlert(msg) {
-        new Dialog().alert(msg, {
-            type: 'warning'
-        });
-    }
+
 
     //粘贴数据到剪切板
     function copyToClipboard(text) {

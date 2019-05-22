@@ -6,6 +6,7 @@ import com.three.transfer.service.UserService;
 import com.three.transfer.util.HttpServletRequestUtil;;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +41,7 @@ public class UserController {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", "注册失败");
                 modelMap.put("errCode", 0);
-            }else {
+            } else {
                 modelMap.put("success", true);
             }
 
@@ -55,7 +56,7 @@ public class UserController {
     @RequestMapping(value = "/logincheck", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> userLogin(HttpServletRequest request) {
-        Map<String,Object> modelMap = new HashMap<>();
+        Map<String, Object> modelMap = new HashMap<>();
         String userStr = HttpServletRequestUtil.getString(request, "userStr");
         ObjectMapper mapper = new ObjectMapper();
         User checkUser = null;
@@ -105,6 +106,12 @@ public class UserController {
             modelMap.put("errMsg", "获取用户信息失败");
         }
         return modelMap;
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        return "frontend/index";
     }
 
 }
