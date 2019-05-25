@@ -1,12 +1,14 @@
-
-var getInfoUrl = "/transfer/getuserinfo",
-    getFileListUrl = "/transfer/getfilelist",
-    deleteFileUrl = "/transfer/deletefile",
-    downloadFileUrl = "/transfer/download",
-    createShareLinkUrl = "/transfer/createsharelink",
+var getInfoUrl = "/user/getuserinfo",
+    getFileListUrl = "/file/getfilelist",
+    deleteFileUrl = "/file/deletefile",
+    downloadFileUrl = "/file/download",
+    createShareLinkUrl = "/share/createsharelink",
     indexPageUrl = "/transfer",
-    logoutUrl = "/transfer/logout",
+    logoutUrl = "/user/logout",
     loginPageUrl = "/transfer/login",
+    shareUrlPrefix = "/share/",
+    confirmShareCodeUrl = "/share/comfirmlinkpass",
+    downloadShareFileUrl = "/share/download",
     registerPageUrl = "/transfer/register";
 
 
@@ -34,9 +36,9 @@ function getUserInfo() {
         processData: false,
         cache: false,
         success: function (data) {
-            if (data.success) {
-                var totalSize = data.totalCapacity;
-                var usedSize = data.usedCapacity;
+            if (data.status === 0) {
+                var totalSize = data.data.totalCapacity;
+                var usedSize = data.data.usedCapacity;
                 updateUserInfo(totalSize, usedSize);
                 console.log('获取成功');
             } else {
@@ -55,8 +57,8 @@ function getFileListInfo(){
         processData: false,
         cache: false,
         success: function (data) {
-            if (data.success) {
-                updateFileList(data.files);
+            if (data.status === 0) {
+                updateFileList(data.data);
                 console.log('获取成功');
             } else {
                 console.log('获取失败');
@@ -103,7 +105,7 @@ function updateFileList(fileList) {
             '        </div>' +
             '    </td>' +
             '   <td class="valid-time uk-text-bold">' +
-            '       <p>有效期至</p><p>' +  transferDateTime(value.validTime)  + '</p>' +
+            '       <p>有效期至</p><p>' +  transferDateTime(value.fileValidTime)  + '</p>' +
             '   </td>' +
             '    <td class="share-button-box uk-inline">' +
             '        <div class="uk-position-left">' +
@@ -146,17 +148,16 @@ function errorToast(headTitle, msg) {
 
 function successAlert(head, msg) {
     $.confirm({
-        icon: 'fa fa-warning',
+        icon: 'fa fa-check-square',
         title: head,
         content: msg,
+        animation: 'RotateYR',
+        closeAnimation: 'RotateYR',
+        animateFromElement: false,
         buttons: {
             ok: {
-                text: '确认',
-                action: function () {
-
-                }
+                text: '确认'
             }
-
         }
     });
 }
@@ -166,18 +167,16 @@ function errorAlert(head, msg) {
         icon: 'fa fa-warning',
         title: head,
         content: msg,
+        animation: 'RotateYR',
+        closeAnimation: 'RotateYR',
+        animateFromElement: false,
         buttons: {
             ok: {
-                text: '确认',
-                action: function () {
-
-                }
+                text: '确认'
             }
-
         }
     });
 }
-
 
 
 

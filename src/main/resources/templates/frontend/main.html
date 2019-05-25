@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="#" />
     <link href="https://cdn.bootcss.com/uikit/3.0.3/css/uikit.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+    <!--<link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">-->
     <link href="https://cdn.bootcss.com/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/framework/confirm/bundled1.css}">
-    <link rel="stylesheet" th:href="@{/css/frontend/main.css}">
     <link rel="stylesheet" th:href="@{/framework/webuploader/webuploader.css}">
-
+    <link rel="stylesheet" th:href="@{/css/frontend/main.css}">
 
 
     <title>Transfer</title>
@@ -68,9 +67,13 @@
                         </div>
                     </div>
                     <div class="banner-wrapper uk-inline" >
-                        <div class="banner-box ">
-                            <div class="home-icon-box"></div>
-                            <div class="log-out-icon-box uk-position-center-right"></div>
+                        <div class="uk-flex icon-box uk-position-center-right">
+                            <div class="uk-card uk-margin-left uk-width-1-2">
+                                <div class="home-icon-box" ></div>
+                            </div>
+                            <div class="uk-card uk-margin-left uk-width-1-2">
+                                <div class="log-out-icon-box"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +92,7 @@
                         <!--</div>-->
                     </div>
                 </div>
-                <div class="file-info-container ">
+                <div class="file-info-container">
                     <div class="file-category-container">
                         <div class="file-tab-wrapper uk-position-relative">
                             <ul uk-tab>
@@ -107,7 +110,7 @@
                     </div>
                     <div class="file-table-container" style="overflow: auto">
                         <table style="overflow: hidden">
-                            <tbody>
+                            <tbody style="width: 100%">
                                 <!--<tr>-->
                                     <!--&lt;!&ndash;<td class="blank"></td>&ndash;&gt;-->
                                     <!--<td class="delete-box icon-wrapper uk-inline" >-->
@@ -161,7 +164,8 @@
                         <div class="button-box">
                             <div class="left-button-box">
                                 <div class="uk-button-group">
-                                    <button id="uploadBtn" class="uk-button uk-button-small">开始上传</button>
+                                    <button id="uploadBtn" class="uk-button uk-button-small">全部开始</button>
+                                    <button id="allStopBtn" class="uk-button uk-button-small">全部暂停</button>
                                     <button id="allClearBtn" class="uk-button uk-button-small" >全部删除</button>
                                 </div>
                             </div>
@@ -172,20 +176,19 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
+                            </div>
                     </div>
                     <div>
                         <hr>
                     </div>
-                    <div class="total-progress-container">
-                        <progress id="progressbar" class="uk-progress" value="0" max="100"></progress>
-                    </div>
+                    <!--<div class="total-progress-container">-->
+                        <!--<progress id="progressbar" class="uk-progress" value="0" max="100"></progress>-->
+                    <!--</div>-->
                     <div class="upload-files-container">
                         <div>
                             <table class="uk-table">
                                 <tbody>
-                                    <!--<tr>-->
+                                    <!--<tr style="width: 100%;">-->
                                         <!--<td class="blank"></td>-->
                                         <!--<td class="delete-box icon-wrapper uk-inline" >-->
                                             <!--<div class="delete uk-position-center "></div>-->
@@ -208,12 +211,13 @@
                                                 <!--</div>-->
                                             <!--</div>-->
                                         <!--</td>-->
-                                        <!--<td class="suspend-button-box uk-inline">-->
-                                            <!--<div class="uk-position-left">-->
-                                                <!--<div class="uk-button-group">-->
-                                                    <!--<button class="uk-button uk-button-small">准备中</button>-->
-                                                <!--</div>-->
-
+                                        <!--<td class="file-status-box uk-inline">-->
+                                            <!--<div class="uk-position-center-right">-->
+                                                <!--<span class="uk-badge file-check-tip hidden">正在校验</span>-->
+                                                <!--<span class="uk-badge file-wait-tip hidden">等待上传</span>-->
+                                                <!--<span class="uk-badge file-upload-tip">上传中<p class="uplaod-process">100</p></span>-->
+                                                <!--<span class="uk-badge file-success-tip hidden">上传成功</span>-->
+                                                <!--<span class="uk-badge file-suppend-tip hidden">已暂停</span>-->
                                             <!--</div>-->
                                         <!--</td>-->
                                     <!--</tr>-->

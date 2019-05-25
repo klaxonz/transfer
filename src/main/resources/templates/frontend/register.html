@@ -15,22 +15,29 @@
     <link rel="stylesheet" th:href="@{/css/frontend/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/frontend/register.css}"/>
 
+    <!--字体-->
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/129470/46724/5ce80a7af629d80094e07d7c.css' rel='stylesheet' type='text/css' />
+
 </head>
 <body>
-<nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-    <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-            <li><a href="/transfer/"><h3>File Transfer</h3></a></li>
-        </ul>
-    </div>
 
-    <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-            <li><a href="/transfer/register">注册</a></li>
-            <li><a href="/transfer/login">登录</a></li>
-        </ul>
-    </div>
-</nav>
+<div class="uk-container">
+    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li><div class="icon icon-white"></div></li>
+                <li><a href="/transfer"><h5>File Transfer</h5></a></li>
+            </ul>
+        </div>
+
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li><a href="/transfer/login">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 
 <div class="main">
     <!-- Sign up form -->
@@ -73,10 +80,6 @@
                         </div>
                     </form>
                 </div>
-                <!--<div class="signup-image">-->
-                    <!--<figure><img src="" th:src="@{/images/signin.jpg}" alt="sing up image"></figure>-->
-                    <!--<a href="#" class="signup-image-link">已经拥有账号</a>-->
-                <!--</div>-->
             </div>
         </div>
     </section>

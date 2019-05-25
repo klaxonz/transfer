@@ -34,3 +34,5 @@ function transferDateTime (dateMillSec) {
     minute = minute < 10 ? ('0' + minute) : minute;
     return y + '-' + m + '-' + d+' '+h+':'+minute;
 }
+
+

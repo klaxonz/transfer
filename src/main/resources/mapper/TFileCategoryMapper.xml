@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.transfer.dao.TFileCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.three.transfer.entity.TFileCategory" >
+    <constructor >
+      <idArg column="file_category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_category_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="file_category_format" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_category_id, file_category_name, file_category_format, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_file_category
+    where file_category_id = #{fileCategoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_file_category
+    where file_category_id = #{fileCategoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.three.transfer.entity.TFileCategory" >
+    insert into tb_file_category (file_category_id, file_category_name, 
+      file_category_format, create_time)
+    values (#{fileCategoryId,jdbcType=INTEGER}, #{fileCategoryName,jdbcType=VARCHAR}, 
+      #{fileCategoryFormat,jdbcType=INTEGER}, now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.transfer.entity.TFileCategory" >
+    insert into tb_file_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileCategoryId != null" >
+        file_category_id,
+      </if>
+      <if test="fileCategoryName != null" >
+        file_category_name,
+      </if>
+      <if test="fileCategoryFormat != null" >
+        file_category_format,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileCategoryId != null" >
+        #{fileCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="fileCategoryName != null" >
+        #{fileCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCategoryFormat != null" >
+        #{fileCategoryFormat,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.transfer.entity.TFileCategory" >
+    update tb_file_category
+    <set >
+      <if test="fileCategoryName != null" >
+        file_category_name = #{fileCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCategoryFormat != null" >
+        file_category_format = #{fileCategoryFormat,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_category_id = #{fileCategoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.transfer.entity.TFileCategory" >
+    update tb_file_category
+    set file_category_name = #{fileCategoryName,jdbcType=VARCHAR},
+      file_category_format = #{fileCategoryFormat,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where file_category_id = #{fileCategoryId,jdbcType=INTEGER}
+  </update>
+</mapper>

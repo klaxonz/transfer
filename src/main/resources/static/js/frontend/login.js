@@ -1,5 +1,5 @@
 $(function () {
-    var loginCheckUrl = "/transfer/logincheck";
+    var loginUrl = "/user/login";
     var mainPageUrl = "/transfer/main"
 
     $("#login").on('click', function () {
@@ -11,20 +11,19 @@ $(function () {
         checkInfo(usernameId, "请输入用户名");
         checkInfo(passwordId, "请输入密码");
         if (username !== "" && password !== "") {
-            var user = {};
-            user.userName = username;
-            user.userPassword = password;
             var formData = new FormData();
-            formData.append("userStr", JSON.stringify(user));
+            formData.append("username", username);
+            formData.append("password", password);
+
             $.ajax({
-                url: loginCheckUrl,
+                url: loginUrl,
                 type: 'POST',
                 data: formData,
                 contentType: false,
                 processData: false,
                 cache: false,
                 success: function (data) {
-                    if (data.success) {
+                    if (data.status === 0) {
                         console.log('登录成功');
                         $(location).attr('href', mainPageUrl);
                         //重定向到登录页面

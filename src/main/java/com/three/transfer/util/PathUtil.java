@@ -6,11 +6,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PathUtil {
     private static String separator = System.getProperty("file.separator");
-    private static String winPath = "G:/projectdev/file";
-    private static String linuxPath = "/home/work/transfer/file";
-    private static String filePath = "/upload/user";
-    private static String shardFilePath = "temp";
+    private static String winPath = PropertiesUtil.getProperty("base.path.win");
+    private static String linuxPath = PropertiesUtil.getProperty("base.path.linux");
+    private static String filePath = PropertiesUtil.getProperty("relative.file.path");
 
+    public static String getSeparator() {
+        return separator;
+    }
 
     /**
      * 获取文件存储的根路径
@@ -34,12 +36,10 @@ public class PathUtil {
     }
 
 
-    public static String getTempShardFilePath(int userId) {
-        String tempShardFilePath = getFilePath(userId) + shardFilePath + separator;
+    public static String getTempShardFilePath(int userId, String tempDirName) {
+        String tempShardFilePath = getFilePath(userId) + tempDirName + separator;
         return tempShardFilePath.replace("/", separator);
 
     }
-
-
 
 }

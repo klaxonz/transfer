@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.transfer.dao.TFileMapper" >
+  <resultMap id="BaseResultMap" type="com.three.transfer.entity.TFile" >
+    <constructor >
+      <idArg column="file_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="file_category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_path" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="last_edit_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="file_download_time" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_size" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="file_valid_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_id, file_name, file_category_id, user_id, file_path, create_time, last_edit_time, 
+    file_download_time, file_size, file_valid_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.three.transfer.entity.TFile" >
+    insert into tb_file (file_id, file_name, file_category_id, 
+      user_id, file_path, create_time, 
+      last_edit_time, file_download_time, file_size, 
+      file_valid_time)
+    values (#{fileId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{fileCategoryId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{filePath,jdbcType=VARCHAR}, now(), now(), #{fileDownloadTime,jdbcType=INTEGER},
+      #{fileSize,jdbcType=BIGINT}, #{fileValidTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.transfer.entity.TFile" >
+    insert into tb_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileCategoryId != null" >
+        file_category_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="fileDownloadTime != null" >
+        file_download_time,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="fileValidTime != null" >
+        file_valid_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCategoryId != null" >
+        #{fileCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="lastEditTime != null" >
+        now(),
+      </if>
+      <if test="fileDownloadTime != null" >
+        #{fileDownloadTime,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="fileValidTime != null" >
+        #{fileValidTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.transfer.entity.TFile" >
+    update tb_file
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCategoryId != null" >
+        file_category_id = #{fileCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = now(),
+      </if>
+      <if test="fileDownloadTime != null" >
+        file_download_time = #{fileDownloadTime,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="fileValidTime != null" >
+        file_valid_time = #{fileValidTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.transfer.entity.TFile" >
+    update tb_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_category_id = #{fileCategoryId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = now(),
+      file_download_time = #{fileDownloadTime,jdbcType=INTEGER},
+      file_size = #{fileSize,jdbcType=BIGINT},
+      file_valid_time = #{fileValidTime,jdbcType=TIMESTAMP}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file
+    where user_id = #{userId};
+  </select>
+
+</mapper>

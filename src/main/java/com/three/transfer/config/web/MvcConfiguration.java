@@ -33,6 +33,5 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements WebMvcC
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-
     }
 }

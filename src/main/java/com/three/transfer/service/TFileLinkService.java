@@ -1,31 +1,28 @@
 package com.three.transfer.service;
 
 
-import com.three.transfer.dto.TFileLinkExecution;
+import com.three.transfer.common.ServerResponse;
 import com.three.transfer.entity.TFileLink;
+import com.three.transfer.vo.ShareFileVo;
 
 public interface TFileLinkService {
 
     /**
      * 创建文件分享链接
-     * @param fileId
-     * @return
+     * @param fileId    文件id
+     * @return          返回结果
      */
-    TFileLinkExecution addFileLink(int fileId, String linkPassword);
+    ServerResponse<TFileLink> createFileShareLink(Integer fileId, String linkPassword);
+
+    ServerResponse<ShareFileVo> share(String linkAddr);
+
+    ServerResponse<ShareFileVo> confirmLinkPassword(String linkAddr, String password);
 
     /**
-     * 通过链接分享地址获取文件分享链接对象
-     * @param linkAddr
-     * @return
+     * 通过文件id删除文件分享链接
+     * @param fileId    文件id
+     * @return          返回结果
      */
-    TFileLink getFileLinkByLinkAddr(String linkAddr);
-
-
-    /**
-     * 通过文件Id删除该文件的分享链接
-    * @param fileId
-     * @return
-     */
-    TFileLinkExecution deleteFileLink(int fileId);
+    ServerResponse<String> deleteFileLink(Integer fileId);
 
 }

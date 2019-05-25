@@ -1,11 +1,11 @@
 package com.three.transfer.util;
 
+import com.three.transfer.bo.UploadFileBo;
 import com.three.transfer.dto.FileHolder;
-import com.three.transfer.entity.UploadInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.ServletContext;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -19,6 +19,7 @@ public class FileUtil {
     private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
     private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
     private static final Random random = new Random();
+    private final static List<UploadFileBo> uploadInfoList = new ArrayList<>();
 
     public static String getFileStoreRelativeAddr (FileHolder file, String targetAddr) {
         makeDirPath(targetAddr);
@@ -28,51 +29,55 @@ public class FileUtil {
 
 
     /**
-     * 创建目标路径所涉及到的目录
-     *
-     * @param targetAddr
+     * 创建分片文件临时存储目录
+      * @param targetAddr 需要创建的相对目录
+     * @return true 目录已存在或创建 false 目录创建失败
      */
-    private static void makeDirPath(String targetAddr) {
-        String realFileParentPath = PathUtil.getFileBasePath() + targetAddr;
-        File dirPath = new File(realFileParentPath);
+    public static String makeDirPath(String targetAddr) {
+        String absoluteTampDirPath = PathUtil.getFileBasePath() + targetAddr ;
+        File dirPath = new File(absoluteTampDirPath);
         if (!dirPath.exists()) {
-            dirPath.mkdirs();
+            boolean isExist = dirPath.mkdirs();
+            if (!isExist) {
+                return null;
+            }
         }
+        return dirPath.getPath() + PathUtil.getSeparator();
     }
 
 
+    /**
+     * 删除文件
+     * @param filePath  文件路径
+     * @return          true   文件删除成功
+     *                  false  文件删除失败
+     */
     public static boolean deleteFile(String filePath) {
-
         boolean flag = false;
-
         if (!"".equals(filePath)) {
             File file = new File(filePath);
             if (file.exists()) {
                 flag = file.delete();
             }
-        } else {
-            flag = false;
         }
         return flag;
     }
 
 
-
-    public static boolean saveFile(String tempShardFilePath, String fileFullName, MultipartFile file)
+    /**
+     * 保存文件
+     * @param filePath          文件路径
+     * @param fileFullName      文件名
+     * @param file              文件对象
+     * @return                  true 保存成功 false 保存失败
+     * @throws Exception
+     */
+    public static boolean saveFile(String filePath, String fileFullName, MultipartFile file)
             throws Exception {
 
         byte[] data = readInputStream(file.getInputStream());
         // new一个文件对象用来保存文件，默认保存再当前用户的临时文件目录
-        File uploadFile = new File(tempShardFilePath + fileFullName);
-        // 判断文件夹是否存在，不存在就创建一个
-        File fileDirectory = new File(tempShardFilePath);
-        synchronized (fileDirectory) {
-            if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdirs()) {
-                    throw new Exception("文件夹创建失败！路径为：" + tempShardFilePath);
-                }
-            }
-        }
+        File uploadFile = new File(filePath + fileFullName);
 
         // 创建输出流
         try (FileOutputStream outStream = new FileOutputStream(uploadFile)) {// 写入数据
@@ -96,7 +101,6 @@ public class FileUtil {
             // 用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
             outStream.write(buffer, 0, len);
         }
-
         // 把outStream里的数据写入内存
         byte[] data = outStream.toByteArray();
         //关闭输入输出流
@@ -106,56 +110,43 @@ public class FileUtil {
         return data;
     }
 
-    private final static List<UploadInfo> uploadInfoList = new ArrayList<>();
-
-    public static boolean Uploaded(UploadInfo info, String mergePath, String shardFilePath) throws Exception {
-
+    public static void storeMd5(UploadFileBo info){
         String md5 = info.getMd5();
-        String chunk = info.getChunk();
-        String chunks = info.getChunks();
-        String fileName = info.getFileName();
-        String ext = info.getExt();
+        Integer chunk = info.getChunk();
+        Integer chunks = info.getChunks();
 
         synchronized (uploadInfoList) {
-
-            if ((md5!=null&&!md5.equals(""))&&(chunks!=null&&!chunks.equals(""))&&!isNotExist(md5,chunk)) {
+            if ((md5 != null && !md5.equals("")) && (chunk != null && chunks != null) && !isNotExist(md5, chunk)) {
                 uploadInfoList.add(info);
             }
         }
-        boolean allUploaded = isAllUploaded(md5, chunks);
-        int chunksNumber = Integer.parseInt(chunks);
-
-        if (allUploaded) {
-            mergeFile(chunksNumber, fileName, mergePath, shardFilePath, ext);
-        }
-        return allUploaded;
     }
 
     //判断在uploadInfoList是否有存在MD5和chunk都相同的元素
-    private static boolean isNotExist(final String md5, final String chunk) {
+    private static boolean isNotExist(final String md5, final Integer chunk) {
         boolean flag =false;
-        for (UploadInfo uploadInfo : uploadInfoList) {
-            if (uploadInfo.getChunk().equals(chunk)&&uploadInfo.getMd5().equals(md5)) {
+        for (UploadFileBo uploadFileBo : uploadInfoList) {
+            if (uploadFileBo.getChunk().equals(chunk) && uploadFileBo.getMd5().equals(md5)) {
                 //若md5和chunk都相同，则认为两条记录相同，返回true
-                flag=true;
+                flag = true;
             }
         }
         return flag;
     }
 
-    private static boolean isAllUploaded(final String md5, String chunks) {
-        int size = uploadInfoList.stream().filter(new Predicate<UploadInfo>() {
+    public static boolean isAllUploaded(final String md5, Integer chunks) {
+        int size = uploadInfoList.stream().filter(new Predicate<UploadFileBo>() {
             @Override
-            public boolean test(UploadInfo item) {
+            public boolean test(UploadFileBo item) {
                 return item.getMd5().equals(md5);
             }
         }).distinct().collect(Collectors.toList()).size();
-        boolean bool = (size == Integer.parseInt(chunks));
+        boolean bool = (size == chunks);
         if (bool) {
             synchronized (uploadInfoList) {
-                uploadInfoList.removeIf(new Predicate<UploadInfo>() {
+                uploadInfoList.removeIf(new Predicate<UploadFileBo>() {
                     @Override
-                    public boolean test(UploadInfo item) {
+                    public boolean test(UploadFileBo item) {
                         return Objects.equals(item.getMd5(), md5);
                     }
                 });
@@ -164,41 +155,30 @@ public class FileUtil {
         return bool;
     }
 
-    @SuppressWarnings("resource")
-    private static void mergeFile(int chunksNumber, String fileName, String mergePath, String shardFilePath, String ext) {
-
-        /* 合并输入流 */
-        SequenceInputStream s;
-        InputStream s1;
-        try {
-            s1 = new FileInputStream(shardFilePath + 0 + ext);
-            String tempFilePath;
-            InputStream s2 = new FileInputStream(shardFilePath + 1 + ext);
-            InputStream s3;
-            s = new SequenceInputStream(s1, s2);
-            for (int i = 2; i < chunksNumber; i++) {
-                tempFilePath = shardFilePath + i + ext;
-                s3 = new FileInputStream(tempFilePath);
-                s = new SequenceInputStream(s, s3);
-            }
-            // 通过输出流向文件写入数据(转移正式文件到目标目录)
-            // uploadFolderPath + guid + ext
-            saveStreamToFile(s, mergePath, fileName);
-            // 删除保存分块文件的文件夹
-            deleteFolder(shardFilePath);
-
-
-            s2.close();
-            s.close();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    public static boolean mergeFile(int chunksNumber, String fileName, String mergePath, String shardFilePath, String ext) throws Exception {
+        InputStream s1 = new FileInputStream(shardFilePath + 0 + "_file." + ext);
+        InputStream s2 = new FileInputStream(shardFilePath + 1 + "_file." + ext);
+        //合并输入流
+        SequenceInputStream s = new SequenceInputStream(s1, s2);
+        String tempFilePath;
+        InputStream s3 = null;
+        for (int i = 2; i < chunksNumber; i++) {
+            tempFilePath = shardFilePath + i + "_file." + ext;
+            s3 = new FileInputStream(tempFilePath);
+            s = new SequenceInputStream(s, s3);
         }
+        // 通过输出流向文件写入数据(转移正式文件到目标目录)
+        saveStreamToFile(s, mergePath, fileName);
+        // 删除保存分块文件的文件夹
+        deleteFolder(shardFilePath);
+        s1.close();
+        s2.close();
+        if (s3 != null) {
+            s3.close();
+        }
+        s.close();
 
+        return true;
     }
 
     private static boolean deleteFolder(String shardFilePath) {
@@ -218,24 +198,11 @@ public class FileUtil {
 
     private static void saveStreamToFile(SequenceInputStream inputStream, String filePath, String newName)
             throws Exception {
-        File fileDirectory = new File(filePath);
-        synchronized (fileDirectory) {
-            if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdir()) {
-                    throw new Exception("保存文件的父文件夹创建失败！路径为：" + fileDirectory);
-                }
-            }
-            if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdir()) {
-                    throw new Exception("文件夹创建失败！路径为：" + fileDirectory);
-                }
-            }
-        }
 
         /* 创建输出流，写入数据，合并分块 */
         OutputStream outputStream = new FileOutputStream(filePath + newName);
         byte[] buffer = new byte[1024];
-        int len = 0;
+        int len;
         try {
             while ((len = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, len);
@@ -249,14 +216,9 @@ public class FileUtil {
         }
     }
 
-    public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
-        ServletContext context = request.getServletContext();
-        // get MIME type of the file
-        String mimeType = mimeType = "application/octet-stream";
-        // set content attributes for the response
+    public static void download(File file, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String mimeType = "application/octet-stream";
         response.setContentType(mimeType);
-        // response.setContentLength((int) downloadFile.length());
-        // set headers for the response
         String fileName = new String(file.getName().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
         String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"", fileName);
@@ -315,7 +277,7 @@ public class FileUtil {
             }
             response.flushBuffer();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             if (null != out) {
                 try {
@@ -332,10 +294,6 @@ public class FileUtil {
                 }
             }
         }
-
-
-
-
     }
 
 }

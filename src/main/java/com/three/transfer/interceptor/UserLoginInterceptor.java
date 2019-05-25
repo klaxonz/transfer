@@ -1,5 +1,6 @@
 package com.three.transfer.interceptor;
 
+import com.three.transfer.common.Const;
 import com.three.transfer.entity.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -11,7 +12,7 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //从session中取出用户数据来
-        Object userObj = request.getSession().getAttribute("user");
+        Object userObj = request.getSession().getAttribute(Const.CURRENT_USER);
         if (userObj != null) {
             User user = (User) userObj;
             if (user.getUserId() > 0 ) {

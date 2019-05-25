@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.transfer.dao.TFileLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.three.transfer.entity.TFileLink" >
+    <constructor >
+      <idArg column="file_link_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_link_addr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="file_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="file_link_access_times" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="last_edit_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="file_link_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="file_link_valid_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_link_id, file_link_addr, file_id, file_link_access_times, create_time, last_edit_time, 
+    file_link_password, file_link_valid_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_file_link
+    where file_link_id = #{fileLinkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_file_link
+    where file_link_id = #{fileLinkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.three.transfer.entity.TFileLink" >
+    insert into tb_file_link (file_link_id, file_link_addr, file_id,
+      file_link_access_times, create_time, last_edit_time,
+      file_link_password, file_link_valid_time)
+    values (#{fileLinkId,jdbcType=INTEGER}, #{fileLinkAddr,jdbcType=VARCHAR}, #{fileId,jdbcType=INTEGER},
+      #{fileLinkAccessTimes,jdbcType=INTEGER}, now(), now(), #{fileLinkPassword,jdbcType=VARCHAR},
+      #{fileLinkValidTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.transfer.entity.TFileLink" >
+    insert into tb_file_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileLinkId != null" >
+        file_link_id,
+      </if>
+      <if test="fileLinkAddr != null" >
+        file_link_addr,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileLinkAccessTimes != null" >
+        file_link_access_times,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="fileLinkPassword != null" >
+        file_link_password,
+      </if>
+      <if test="fileLinkValidTime != null" >
+        file_link_valid_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileLinkId != null" >
+        #{fileLinkId,jdbcType=INTEGER},
+      </if>
+      <if test="fileLinkAddr != null" >
+        #{fileLinkAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileLinkAccessTimes != null" >
+        #{fileLinkAccessTimes,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="lastEditTime != null" >
+        now(),
+      </if>
+      <if test="fileLinkPassword != null" >
+        #{fileLinkPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLinkValidTime != null" >
+        #{fileLinkValidTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.transfer.entity.TFileLink" >
+    update tb_file_link
+    <set >
+      <if test="fileLinkAddr != null" >
+        file_link_addr = #{fileLinkAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileLinkAccessTimes != null" >
+        file_link_access_times = #{fileLinkAccessTimes,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = now(),
+      </if>
+      <if test="fileLinkPassword != null" >
+        file_link_password = #{fileLinkPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLinkValidTime != null" >
+        file_link_valid_time = #{fileLinkValidTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where file_link_id = #{fileLinkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.transfer.entity.TFileLink" >
+    update tb_file_link
+    set file_link_addr = #{fileLinkAddr,jdbcType=VARCHAR},
+      file_id = #{fileId,jdbcType=INTEGER},
+      file_link_access_times = #{fileLinkAccessTimes,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = now(),
+      file_link_password = #{fileLinkPassword,jdbcType=VARCHAR},
+      file_link_valid_time = #{fileLinkValidTime,jdbcType=BIGINT}
+    where file_link_id = #{fileLinkId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByFileId" parameterType="int">
+    delete
+    from tb_file_link
+    where file_id = #{fileId};
+  </delete>
+  <select id="selectByFileId" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file_link
+    where file_id = #{fileId};
+  </select>
+
+  <select id="selectNoPasswordLinkByFileId" resultMap="BaseResultMap" resultType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file_link
+    where file_id = #{fileId}
+    and file_link_password is null;
+  </select>
+
+  <select id="selectHasPasswordLinkByFileId" resultMap="BaseResultMap" resultType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file_link
+    where file_id = #{fileId}
+    and file_link_password is not null;
+  </select>
+
+  <select id="selectByLinkAddr" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file_link
+    where file_link_addr = #{linkAddr}
+  </select>
+
+  <select id="selectByLinkAddrAndPassword" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_file_link
+    where file_link_addr = #{linkAddr}
+    and file_link_password = #{password};
+  </select>
+
+</mapper>

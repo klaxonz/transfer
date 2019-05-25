@@ -117,11 +117,13 @@ body {
                     background: transparent;
                 }
 
+                .icon-box{
+                    width: 80px;
+                }
 
                  .home-icon-box{
                     height: 24px;
                     width: 24px;
-                    margin: 39px 0 0 440px;
                     cursor: pointer;
                     background: url("../../images/icons/home.png") no-repeat;
                 }
@@ -271,14 +273,14 @@ body {
                 }
 
                 tr .file-box {
-                    width: 250px;
-                    height: 56px;
+                    width: 450px !important;
+                    height: 56px !important;
                     padding: 0;
-                    margin-left: 25px;
-                    /*background-color: #4292dc;*/
+
                 }
                     .file {
-                        margin: 6px 0 6px 20px;
+                        padding-left: 25px;
+                        padding-top: 6px;
                         width: 100%;
                         height: 80%;
                     }
@@ -413,29 +415,54 @@ body {
     }
 
 
-
-
-
-
-
 .upload-files-container {
     height: 380px;
     overflow-y: auto;
-    ;
-
 }
-    tr .suspend-button-box {
-        width: 80px;
-        height: 32px;
-        padding: 0;
-        margin: 16px 0 11px 440px;
+
+.upload-files-container tr{
+    width: 100% !important;
+}
+    tr .file-status-box{
+        width: calc(100% - 628px) !important;
+        height: 56px !important;
+        padding: 0 !important;
+
     }
 
-        .suspend-button-box button {
-            background-color: #FBC723;
-            color: white;
-            border-radius: 2em;
-        }
+    .file-check-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #F9CE00 !important;
+    }
+    .file-upload-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #24a8ac !important;
+    }
+    .file-wait-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #1B6AA5 !important;
+    }
+    .file-success-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #24a8ac !important;
+    }
+    .file-suppend-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #C00000 !important;
+    }
+    .file-error-tip{
+        width: 100px !important;
+        font-size: 14px !important;
+        background-color: #C00000 !important;
+    }
+
+
+
 
     #progressbar{
         margin-bottom: 10px;

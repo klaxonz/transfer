@@ -14,12 +14,6 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void testGetUserById() {
-        User user = userService.getUserById(13);
-        System.out.println(user.getUserName());
-
-    }
 
 
 

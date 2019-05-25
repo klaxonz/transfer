@@ -33,6 +33,8 @@ spring:
     encoding: UTF-8
 
 
+
+
   #静态资源文件配置
 
 
@@ -47,6 +49,10 @@ spring:
       max-file-size: 100MB
       #多个文件上传的最大值
       max-request-size: 100MB
+
+  #Json配置
+  jackson:
+    default-property-inclusion: non_null
 
 # Mybatis配置
 mybatis:

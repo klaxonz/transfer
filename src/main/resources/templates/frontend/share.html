@@ -8,28 +8,42 @@
     <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
     <link href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/frontend/share.css}"/>
+
+    <!--字体-->
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/129470/46724/5ce80a7af629d80094e07d7c.css' rel='stylesheet' type='text/css' />
+
     <title>分享</title>
 </head>
 <body>
 
-    <div class="root uk-inline">
-        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
-                    <li id="title"><h3>File Transfer</h3></li>
-                </ul>
+<div class="uk-container main-container">
+    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li><div class="icon icon-white"></div></li>
+                <li><a href="#"><h5>File Transfer</h5></a></li>
+            </ul>
+        </div>
+
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li><a href="/transfer/register">注册</a></li>
+                <li><a href="/transfer/login">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+        <div class="share-code-container uk-position-center hidden">
+            <div class="share-password-input uk-text-bold" style="float: left;">
+                <span class="ui-input"><input id="share-num" placeholder="分享码"></span>
             </div>
-
-            <div class="uk-navbar-right uk-text-bold">
-                <ul class="uk-navbar-nav">
-                    <li><a href="/transfer/register">注册</a></li>
-                    <li><a href="/transfer/login">登录</a></li>
-                </ul>
+            <div class="confirm-button uk-text-bold">
+                <button class="uk-button uk-button-default">确认</button>
             </div>
-        </nav>
+        </div>
 
 
-        <div class="share-file-info-container uk-position-center">
+        <div class="share-file-info-container uk-position-center hidden">
             <div class="logo">
             </div>
             <div class="file-name uk-text-large uk-text-bold uk-text-nowrap uk-text-truncate">
@@ -40,9 +54,6 @@
             </div>
             <div class="file-link-valid-time uk-text-bold">
                 <span>有效时间至  </span><span id="time"></span>
-            </div>
-            <div class="share-password-input uk-text-bold">
-                <span class="ui-input"><input id="share-num" placeholder="分享码"></span>
             </div>
             <div class="download-button uk-text-bold">
                 <button class="uk-button uk-button-default">下载</button>
@@ -65,21 +76,7 @@
 <script th:src="@{/js/util/util.js}"></script>
 <script th:src="@{/js/frontend/common.js}"></script>
 <script th:src="@{/js/frontend/share.js}"></script>
-<script th:inline="javascript" type="text/javascript">
-    $(function (){
-        var fileName = [[${fileName}]];
-        var fileSize = [[${fileSize}]];
-        var fileValidTime = [[${fileValidTime}]];
-        var fileId = [[${fileId}]];
-        var fileLinkPasswod = [[${fileLinkPassword}]];
-        setFileName(fileName);
-        setFileSize(fileSize);
-        setFileValidTime(fileValidTime);
-        setFileLinkPasswod(fileLinkPasswod);
-        setDownloadButtonListen(fileId);
 
-    });
-</script>
 
 </body>
 </html>

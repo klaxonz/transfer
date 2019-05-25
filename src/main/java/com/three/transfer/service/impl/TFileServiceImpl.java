@@ -1,17 +1,11 @@
 package com.three.transfer.service.impl;
 
-import com.three.transfer.dao.TFileDao;
-import com.three.transfer.dao.UserDao;
-import com.three.transfer.dto.FileHolder;
-import com.three.transfer.dto.TFileExecution;
-import com.three.transfer.dto.TFileLinkExecution;
-import com.three.transfer.entity.TFile;
-import com.three.transfer.entity.TFileCategory;
-import com.three.transfer.entity.UploadInfo;
-import com.three.transfer.entity.User;
-import com.three.transfer.enums.TFileLinkStateEnum;
-import com.three.transfer.enums.TFileStateEnum;
-import com.three.transfer.exceptions.TFileException;
+import com.three.transfer.bo.UploadFileBo;
+import com.three.transfer.common.Const;
+import com.three.transfer.common.ResponseCode;
+import com.three.transfer.common.ServerResponse;
+import com.three.transfer.dao.*;
+import com.three.transfer.entity.*;
 import com.three.transfer.service.TFileLinkService;
 import com.three.transfer.service.TFileService;
 import com.three.transfer.util.FileUtil;
@@ -20,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -28,196 +24,170 @@ import java.util.List;
 @Service
 public class TFileServiceImpl implements TFileService {
 
+
     @Autowired
-    private TFileDao fileDao;
+    private UserMapper userMapper;
     @Autowired
-    private UserDao userDao;
+    private TFileMapper fileMapper;
+    @Autowired
+    private TFileLinkMapper fileLinkMapper;
+
     @Autowired
     private TFileLinkService fileLinkService;
 
-    private long validTimeMills = 604800000;
 
     @Override
     @Transactional
-    public TFileExecution addFile(MultipartFile file, User user) {
-        FileHolder fileHolder = new FileHolder();
-        TFile fileInfo = new TFile();
-        String fileRelativePath = PathUtil.getFilePath(user.getUserId());
-        //获取输入流
-        if (file != null) {
-            //保存文件至本地
-            try {
+    public ServerResponse<String> uploadFile(UploadFileBo uploadFileBo,MultipartFile file, User user) throws Exception {
 
-                fileHolder.setFileName(file.getOriginalFilename());
-                fileHolder.setInputStream(file.getInputStream());
-                String dest = FileUtil.getFileStoreRelativeAddr(fileHolder,
-                        fileRelativePath);
-                file.transferTo(new File(PathUtil.getFileBasePath() + dest));
-
-            } catch (IOException e) {
-                throw new TFileException("add file error: " + "保存文件失败");
-            }
-
-            try {
-                //将文件信息保存至数据库
-
-                TFileCategory fileCategory = new TFileCategory();
-                fileCategory.setFileCategoryId(2);
-                fileInfo.setUser(user);
-                fileInfo.setFileName(fileHolder.getFileName());
-                fileInfo.setFilePath(fileRelativePath);
-                fileInfo.setCreateTime(new Date());
-                fileInfo.setFileSize(file.getSize());
-                fileInfo.setLastEditTime(new Date());
-                Date validTime = new Date(System.currentTimeMillis() + validTimeMills);
-                fileInfo.setFileValidTime(validTime);
-                fileInfo.setFileCategory(fileCategory);
-                int res = fileDao.insertFile(fileInfo);
-
-                if (res <= 0) {
-                    throw new TFileException("存储文件失败");
-                }
-
-            } catch (Exception e) {
-                throw new TFileException("add file error:" + "保存文件信息失败");
-            }
-
-            //更新用户信息
-            try {
-                User userInfo = userDao.getUserById(user.getUserId());
-                userInfo.setUsedCapacity(userInfo.getUsedCapacity() + file.getSize());
-                int res = userDao.updateUser(userInfo);
-                if (res <= 0) {
-                    throw new RuntimeException("更新用户信息失败");
-                }
-
-            } catch (Exception e) {
-                return new TFileExecution(TFileStateEnum.INNER_ERROR);
-            }
-
-
-
-        } else {
-            return new TFileExecution(TFileStateEnum.INNER_ERROR);
+        //判断用户存储目录是否存在，如果不存在就创建
+        String tempDirName = PathUtil.getFilePath(user.getUserId());
+        String tempDirFullPath = FileUtil.makeDirPath(tempDirName);
+        if (tempDirFullPath == null) {
+            return ServerResponse.createByErrorMessage("上传文件失败");
         }
-
-        return new TFileExecution(TFileStateEnum.SUCCESS, fileInfo);
-    }
-
-    @Override
-    @Transactional
-    public TFileExecution addShardFile(UploadInfo info, MultipartFile file, User user) {
-
-        if (file != null) {
-            //保存文件
-            try {
-                if (info != null) {
-                    int index;
-                    String fileName;
-                    String ext = info.getFileName().substring(info.getFileName().lastIndexOf("."));
-
-                    //判断文件是否分块
-                    if (info.getChunks() != null && info.getChunk() != null) {
-                        index = Integer.parseInt(info.getChunk());
-                        fileName = String.valueOf(index) + ext;
-                        String tempShardPath = PathUtil.getFileBasePath() + PathUtil.getTempShardFilePath(user.getUserId());
-                        String mergePath = PathUtil.getFileBasePath() + PathUtil.getFilePath(user.getUserId());
-                        //保存分片文件到临时目录
-                        FileUtil.saveFile(tempShardPath, fileName, file);
-
-                        // 验证所有分块是否上传成功，成功的话进行合并
-                        boolean result = FileUtil.Uploaded(info, mergePath, tempShardPath);
-                        //合并完成后保存文件信息
-                        if (result) {
-                            try {
-                                User tempUser = userDao.getUserById(user.getUserId());
-                                TFile fileInfo = new TFile();
-                                TFileCategory fileCategory = new TFileCategory();
-                                fileCategory.setFileCategoryId(2);
-                                //TODO 根据文件后缀名获取文件分类
-                                fileInfo.setFileCategory(fileCategory);
-                                fileInfo.setLastEditTime(new Date());
-                                fileInfo.setCreateTime(new Date());
-                                Date validTime = new Date(System.currentTimeMillis() + validTimeMills);
-                                fileInfo.setFileValidTime(validTime);
-                                fileInfo.setFilePath(PathUtil.getFilePath(user.getUserId()));
-                                fileInfo.setFileName(info.getFileName());
-                                fileInfo.setFileSize(info.getSize());
-                                fileInfo.setUser(user);
-                                int res = fileDao.insertFile(fileInfo);
-                                if (res <= 0) {
-                                    throw new RuntimeException();
-                                }
-                                //更新用户信息
-                                tempUser.setUsedCapacity(user.getUsedCapacity() + info.getSize());
-                                userDao.updateUser(tempUser);
-                            } catch (Exception e) {
-                                throw new RuntimeException("文件保存失败");
-                            }
-                        }
-                    } else {
-                        TFileExecution fileExecution = addFile(file, user);
-                        if (fileExecution.getState() != TFileStateEnum.SUCCESS.getState()) {
-                            throw new RuntimeException("文件上传失败");
-                        }
-                    }
-                } else {
-                    throw new RuntimeException("文件上传失败");
-                }
-            } catch (Exception e) {
-                return new TFileExecution(TFileStateEnum.INNER_ERROR);
-            }
-        }
-        return new TFileExecution(TFileStateEnum.SUCCESS);
-    }
-
-    @Override
-    public List<TFile> getFileList(User user) {
-        return fileDao.getFilesByUserId(user.getUserId());
-    }
-
-    @Override
-    @Transactional
-    public TFileExecution deleteFile(int fileId, User user) {
-        //删除本地存储的文件
-        TFile file = fileDao.getFileById(fileId);
-        String filePath = PathUtil.getFileBasePath() + file.getFilePath() + file.getFileName();
-        boolean result = FileUtil.deleteFile(filePath);
+        //保存文件
+        boolean result = FileUtil.saveFile(tempDirFullPath, uploadFileBo.getName(), file);
         if (!result) {
-            return new TFileExecution(TFileStateEnum.INNER_ERROR);
+            return ServerResponse.createByErrorMessage("上传文件失败");
         }
-        //如果文件有分享链接，则删除
-        TFileLinkExecution fileLinkExecution = fileLinkService.deleteFileLink(fileId);
-        if (fileLinkExecution.getState() != TFileLinkStateEnum.SUCCESS.getState()) {
-            return new TFileExecution(TFileStateEnum.INNER_ERROR);
+        //更新数据库
+        user.setUsedCapacity(user.getUsedCapacity() + uploadFileBo.getSize());
+        int rowCount = userMapper.updateByPrimaryKeySelective(user);
+        if (rowCount == 0) {
+            return ServerResponse.createByErrorMessage("上传文件失败");
         }
-        //更新数据库文件信息
-        int res = fileDao.deleteFileById(file.getFileId());
-        if (res <= 0) {
-            return new TFileExecution(TFileStateEnum.INNER_ERROR);
+        TFile tFile = assembleFile(uploadFileBo, user);
+        rowCount = fileMapper.insert(tFile);
+        if (rowCount == 0) {
+            return ServerResponse.createByErrorMessage("上传文件失败");
         }
-        //更新数据库用户信息
-        user.setUsedCapacity(user.getUsedCapacity() - file.getFileSize());
-        res = userDao.updateUser(user);
-        if (res <= 0) {
-            return new TFileExecution(TFileStateEnum.INNER_ERROR);
-        }
-
-        return new TFileExecution(TFileStateEnum.SUCCESS, file);
+        return ServerResponse.createBySuccessCodeMessage(ResponseCode.FILE_UPLOAD_SUCCESS.getCode(),
+                ResponseCode.FILE_UPLOAD_SUCCESS.getMsg());
     }
 
+
     @Override
-    public File getFile(int filed) {
-        TFile fileInfo = fileDao.getFileById(filed);
-        String filePath = PathUtil.getFileBasePath() + fileInfo.getFilePath() + fileInfo.getFileName();
-        File file = new File(filePath);
+    @Transactional
+    public ServerResponse<String> uploadShardFile(UploadFileBo uploadFileBo, MultipartFile file, User user) throws Exception {
+        //判断以guid命名的目录是否存在，如果不存在就创建
+        String tempDirName = PathUtil.getTempShardFilePath(user.getUserId(), uploadFileBo.getGuid());
+        String tempDirFullPath = FileUtil.makeDirPath(tempDirName);
+        if (tempDirFullPath == null) {
+            return ServerResponse.createByErrorMessage("上传文件失败");
+        }
+
+        //重命名分片文件，将其保存保存在临时目录中
+        //命名规则 chunk + "_" + "file" + "." + ext  如：1_file.pdf
+        String shardFileName = uploadFileBo.getChunk() + "_" + "file" + "." + uploadFileBo.getExt();
+        boolean result = FileUtil.saveFile(tempDirFullPath, shardFileName, file);
+        if (!result) {
+            return ServerResponse.createByErrorMessage("上传文件失败");
+        }
+        //存储分片文件md5值
+        FileUtil.storeMd5(uploadFileBo);
+        //判断所有分片是否上传完成，如果所有分片文件已经上传完成，则进行合并
+        if (FileUtil.isAllUploaded(uploadFileBo.getMd5(), uploadFileBo.getChunks())) {
+            result = FileUtil.mergeFile(uploadFileBo.getChunks(), uploadFileBo.getName(), PathUtil.getFileBasePath() + PathUtil.getFilePath(user.getUserId()),
+                    tempDirFullPath, uploadFileBo.getExt());
+            if (!result) {
+                return ServerResponse.createByErrorMessage("上传文件失败");
+            }
+            //更新数据库
+            user.setUsedCapacity(user.getUsedCapacity() + uploadFileBo.getSize());
+            int rowCount = userMapper.updateByPrimaryKeySelective(user);
+            if (rowCount == 0) {
+                return ServerResponse.createByErrorMessage("上传文件失败");
+            }
+            TFile tFile = assembleFile(uploadFileBo, user);
+            rowCount = fileMapper.insert(tFile);
+            if (rowCount == 0) {
+                return ServerResponse.createByErrorMessage("上传文件失败");
+            }
+            return ServerResponse.createBySuccessCodeMessage(ResponseCode.FILE_UPLOAD_SUCCESS.getCode(),
+                    ResponseCode.FILE_UPLOAD_SUCCESS.getMsg());
+        }
+        return ServerResponse.createBySuccessMessage("分片文件上传成功");
+    }
+
+
+    private TFile assembleFile(UploadFileBo uploadFileBo, User user) {
+        TFile file = new TFile();
+        file.setFileName(uploadFileBo.getName());
+        file.setUserId(user.getUserId());
+        file.setFileCategoryId(2);
+        file.setFileSize(uploadFileBo.getSize());
+        file.setFileDownloadTime(0);
+        file.setFilePath(PathUtil.getFilePath(user.getUserId()));
+        Date validTime = new Date(System.currentTimeMillis() + Const.File.FILE_VAILD_TIME);
+        file.setFileValidTime(validTime);
         return file;
     }
 
     @Override
-    public TFile getFileByFileId(int filed) {
-        return fileDao.getFileById(filed);
+    public ServerResponse<List<TFile>> getFileList(User user) {
+        List<TFile> fileList = fileMapper.selectByUserId(user.getUserId());
+        return ServerResponse.createBySuccess("获取文件列表成功",fileList);
     }
 
+    @Override
+    @Transactional
+    public ServerResponse<String> deleteFile(Integer fileId, User user) {
+        //删除本地存储的文件
+        TFile file = fileMapper.selectByPrimaryKey(fileId);
+        String filePath = PathUtil.getFileBasePath() + file.getFilePath() + file.getFileName();
+        boolean result = FileUtil.deleteFile(filePath);
+        if (!result) {
+            return ServerResponse.createByErrorMessage("文件删除失败");
+        }
+        //如果文件有分享链接，则删除
+        List<TFileLink> fileLinkList = fileLinkMapper.selectByFileId(fileId);
+        if (fileLinkList.size() > 0) {
+            for (TFileLink fileLinkItem : fileLinkList) {
+                int res = fileLinkMapper.deleteByPrimaryKey(fileLinkItem.getFileLinkId());
+                if (res == 0) {
+                    return ServerResponse.createByErrorMessage("文件删除失败");
+                }
+            }
+        }
+        //更新数据库文件信息
+        int res = fileMapper.deleteByPrimaryKey(fileId);
+        if (res == 0) {
+            return ServerResponse.createByErrorMessage("文件删除失败");
+        }
+        //更新数据库用户信息
+        user.setUsedCapacity(user.getUsedCapacity() - file.getFileSize());
+        res = userMapper.updateByPrimaryKeySelective(user);
+        if (res == 0) {
+            return ServerResponse.createByErrorMessage("文件删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除文件成功");
+    }
+
+    @Override
+    @Transactional
+    public ServerResponse<String> downloadFile(Integer fileId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (fileId == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEAGEL_ARGUMENT.getCode(), "请求参数非法");
+        }
+        File file = getFile(fileId);
+        if (file == null) {
+            return ServerResponse.createByErrorMessage("请求文件不存在");
+        }
+        FileUtil.download(file,request,response);
+        //更新数据库
+        TFile tFile = fileMapper.selectByPrimaryKey(fileId);
+        tFile.setFileDownloadTime(tFile.getFileDownloadTime() + 1);
+        return ServerResponse.createBySuccess("下载文件成功");
+    }
+
+
+    @Override
+    public File getFile(int filed) {
+        TFile fileInfo = fileMapper.selectByPrimaryKey(filed);
+        String filePath = PathUtil.getFileBasePath() + fileInfo.getFilePath() + fileInfo.getFileName();
+        File file = new File(filePath);
+        return file.exists() ? file : null;
+    }
 
 }

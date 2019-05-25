@@ -4,19 +4,49 @@ html, body {
 }
 
 /*导航栏*/
-.uk-navbar-left ul li h3{
-    font-family: Malvie;
-    font-size: 2vw;
-    margin: 0 0 0 20px;
+.nav{
+    height: 80px !important;
 }
 
-.uk-navbar-right ul li a{
-    font-size: 1vw;
+/*导航栏*/
+.uk-navbar-left ul li h5{
+    font-family: Malvie !important;
+    color: white;
+    margin: 0;
+    padding: 0 !important;
+    vertical-align: center;
 }
+
+.uk-navbar-left ul li div{
+    position: relative;
+    top: 45%;
+    transform: translateY(-45%);
+}
+
+.uk-navbar-right ul li a {
+    font-family:'TSSunOld198f9237f61f9be' !important;
+    color: white !important;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    -webkit-mask: url(/images/svg/theme.svg) no-repeat 50% 50%;
+    mask: url(/images/svg/theme.svg) no-repeat 50% 50%;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+.icon-white { background-color: white; }
 
 
 #title{
     cursor: pointer;
+}
+
+#share-num{
+    border-color: white !important;
 }
 
 .root{
@@ -24,6 +54,17 @@ html, body {
     width: 100%;
 
 }
+
+.share-code-container .confirm-button {
+    margin-left: 10px;
+    float: left;
+
+}
+.confirm-button button{
+    border-radius: 0.2em !important;
+    color: white !important;
+}
+
 
 
 .share-file-info-container {
@@ -33,46 +74,31 @@ html, body {
     margin-top: 30px;
     /*background-color: white;*/
     text-align: center;
-    color: black;
+    color: white;
 }
 
-    .file-name{
-        color: black;
-    }
-        .file-name p {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+    .file-name p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
-        }
-
-    .share-password-input{
-        margin-top: 20px;
-    }
-
-    .download-button button{
-        background-color: white;
     }
 
     .download-button{
-        margin-top: 20px;
+        margin-top: 60px;
     }
 
     .download-button button {
         width: 188px;
         border-radius: 4px;
+        color: white !important;
     }
-
 
 
 /*common*/
 .hidden{
     display: none;
 }
-
-
-
-
 
 
 /*自定义字体*/

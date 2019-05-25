@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:src="http://www.w3.org/1999/xhtml">
 <head>
     <title>Transfer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,14 +8,20 @@
     <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
     <link rel="stylesheet" th:href="@{/css/frontend/index.css}"/>
 
+    <!--字体-->
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/129470/28952/5ce805edf629d80094e07d79.css' rel='stylesheet' type='text/css' />
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/129470/46724/5ce80a7af629d80094e07d7c.css' rel='stylesheet' type='text/css' />
+
+
 </head>
 <body>
 
-    <div class="root">
+    <div class="uk-container main-container">
         <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
-                    <li><a href="#"><h3>File Transfer</h3></a></li>
+                    <li><div class="icon icon-white"></div></li>
+                    <li><a href="#"><h5>File Transfer</h5></a></li>
                 </ul>
             </div>
 
@@ -27,33 +33,24 @@
             </div>
         </nav>
 
-        <div class="wrapper">
-            <div class="content">
-                <!--<div class="content-text-title">-->
-                    <!--<h1>临时文件中转站</h1>-->
-                <!--</div>-->
-                <div class="img-box" style="height: 400px; width: 600px;margin: 0 auto;padding-top: 20px">
-                    <img style="width: 100%" th:src="@{/images/bg/yellow_image.jpg}">
+        <div class="wrapper uk-flex">
+            <div class="left-wrapper uk-card uk-width-1-2 ">
+                <div class="info-container uk-position-center">
+                    <h1>File Transfer</h1>
+                    <p>
+                        <span>
+                            文件临时中转站，一个临时存储文件的web应用，只需简单注册即可存储、分享文件。
+                            文件有效期7天，过期不保存，节约存储空间。
+                        </span>
+                    </p>
                 </div>
+            </div>
+            <div class="right-wrapper uk-card uk-width-1-2 ">
 
-
-                <div class="content-text-subtitle">
-                    <h6 class="">方便，快捷，高效的临时文件存储</h6>
-                    <h6 class="">实时的文件预览，管理</h6>
-                </div>
-                <div class="cotext-text-botton">
-                    <button class="uk-button uk-button-primary">开始使用</button>
-                </div>
             </div>
         </div>
 
-
-
     </div>
-
-
-
-
 
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>

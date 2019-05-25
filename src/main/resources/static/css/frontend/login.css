@@ -4,16 +4,22 @@ html, body {
 }
 
 /*导航栏*/
-.uk-navbar-left ul li h3{
+.uk-navbar-left ul li h5{
     font-family: Malvie;
-    font-size: 2vw;
+    color: white;
     margin: 0;
 }
 
-.uk-navbar-right ul li a{
-    font-size: 1vw;
+.uk-navbar-left ul li div{
+    position: relative;
+    top: 45%;
+    transform: translateY(-45%);
 }
 
+.uk-navbar-right ul li a {
+    font-family:'TSSunOld198f9237f61f9be' !important;
+    color: white !important;
+}
 
 .login-info-container{
     height: 55px;
@@ -29,6 +35,22 @@ html, body {
     width: 100%;
     border: none;
 }
+
+
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    -webkit-mask: url(/images/svg/theme.svg) no-repeat 50% 50%;
+    mask: url(/images/svg/theme.svg) no-repeat 50% 50%;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+.icon-white { background-color: white; }
+
+
 
 /*自定义字体*/
 @font-face {

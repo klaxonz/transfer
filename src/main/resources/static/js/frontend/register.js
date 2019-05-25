@@ -1,19 +1,20 @@
 $(function () {
     var checkInfoValue = {};
-    var registerUrl = '/transfer/registercheck',
-        loginUrl = '/transfer/login';
+    var registerUrl = '/user/register',
+        loginUrl = '/user/login';
 
 
     $("#submit").on('click', function () {
 
         if (isValid(checkInfoValue)) {
-            var user = {};
+            var userName = $("#name").val();
+            var userPassword = $("#pass").val();
+            var userEmail = $("#email").val();
 
-            user.userName = $("#name").val();
-            user.userPassword = $("#pass").val();
-            user.userEmail = $("#email").val();
             var formData = new FormData();
-            formData.append("userStr", JSON.stringify(user));
+            formData.append("userName", userName);
+            formData.append("userPassword", userPassword);
+            formData.append("userEmail", userEmail);
 
             //将数据提交至后台处理相关操作
             $.ajax({
@@ -24,15 +25,14 @@ $(function () {
                 processData: false,
                 cache: false,
                 success: function (data) {
-                    if (data.success) {
+                    if (data.status === 0) {
                         $.lightTip.success('注册成功');
                         console.log('注册成功');
-                        $(location).attr('href', loginUrl);
+                        $(location).attr('href', loginPageUrl);
                         //重定向到登录页面
                     } else {
                         //用户注册失败
                         errorToast("注册失败", "请检查注册信息是否填写正确");
-
                     }
                 }
             });

@@ -14,32 +14,5 @@ import java.util.Date;
 @SpringBootTest
 public class TFileCategoryDaoTest {
 
-    @Autowired
-    private TFileCategoryDao fileCategoryDao;
-
-    @Test
-    public void testAddFileCategory() {
-
-        TFileCategory fileCategory = new TFileCategory();
-        fileCategory.setFileCategoryName("音频");
-        fileCategory.setFileCategoryFormat(3);
-        fileCategory.setCreateTime(new Date());
-
-        int res = fileCategoryDao.insertFileCategory(fileCategory);
-        System.out.println(res);
-
-    }
-
-    @Test
-    public void testGetFileCategoryById() {
-        TFileCategory fileCategory = fileCategoryDao.getFileCategoryById(2);
-        System.out.println(fileCategory.getFileCategoryName());
-    }
-
-    @Test
-    public void testDeleteFileCategoryById() {
-        fileCategoryDao.deleteFileCategoryById(1);
-    }
-
 
 }
