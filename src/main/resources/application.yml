@@ -6,9 +6,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost/transfer?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
-    #url: jdbc:mysql://134.175.74.54/transfer?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
-    username: root
-    password: 359869
+    username: #数据库用户名
+    password: #数据库密码
     #配置数据源
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat
